@@ -1,0 +1,22 @@
+{
+  "name": "grossline",
+  "version": "1.0.0",
+  "description": "Local Next.js copy of grossline.dst.uz/ru",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "mirror": "node ./scripts/mirror.mjs"
+  },
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "next": "^16.2.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "website-scraper": "^6.0.0"
+  }
+}

@@ -1,0 +1,170 @@
+@media(max-width: 1200px) {
+  section > .container > .row > .col-md-12 > .owl-carousel .owl-item > .buttons > .control-buttons > a {
+    padding: 8px;
+  }
+  
+  
+  .owl-item.productPageItem div.buttons div.control-buttons button.decr {
+    left: 45px;
+  }
+  .productPageItem div.buttons div.control-buttons form div.form-item.form-type-textfield.form-item-quantity {
+    left: 43.5%;
+  }
+  .owl-item.productPageItem div.buttons div.control-buttons button.incr {
+    right: 40px;
+  }
+  
+  .productPageItem div.buttons div.control-buttons form div.form-item.form-type-textfield.form-item-quantity {
+    left: 41%;
+  }
+  
+  
+  
+  
+  
+}
+
+
+
+
+
+
+
+
+@media(max-width: 1199px) {
+  section > .container > .row > .col-md-12 > .owl-carousel .owl-item > .image-n-controls {
+    padding: 35px 20px 30px;
+  }
+  
+  .control-buttons form div input[type="submit"] {
+    background: #fff;
+    border: 1px solid #c1c1c1;
+    padding: 8px 18px;
+    font-size: 13px;
+    color: #010101;
+    font-weight: normal;
+    border-radius: 0 20px 20px 0;
+    position: relative;
+    transition: all .5s ease;
+    cursor: pointer;
+  }
+  
+  
+  section > .container > .row > .col-md-12 > .owl-carousel .owl-item > .buttons > .control-buttons > a {
+    padding: 8px 18px;
+  }
+  
+  
+}
+
+@media (min-width: 992px) {
+  header > .middle > .container > .row > .col-md-12 > nav.navbar > .container > .row > .col-xl-8 > .content > .search > form > button {
+    right: 7%;
+    top: 32%;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 576px) {
+  section > .container > .row > .col-md-12 > .owl-carousel .owl-item > .image-n-controls > img {
+    width: 50%;
+    margin: 0 auto;
+    height: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  header > .middle > .container > .row > .col-md-12 > nav.navbar > .container > .row > .col-xl-4 > .logo:after {\
+    right: 0;
+  }
+  
+  header > .middle > .container > .row > .col-md-12 > nav.navbar > .container > .row > .col-xl-4 > .logo:after {
+    margin-right: 50px;
+    margin-left: 30px;
+  }
+  
+  
+  
+
+  
+  
+}
+
+  @media (max-width: 768px) {
+    .control-buttons form div input[type="submit"] {
+      width: 50%;
+    }
+    
+    section > .container > .row > .col-md-12 > .owl-carousel .owl-item > .buttons > .control-buttons > a {
+      padding: 8px 0;
+      width: 50%;
+      text-align: center;
+    }
+    
+    
+    
+    .owl-item.productPageItem div.buttons div.control-buttons button.decr {
+      left: 37%;
+    }
+    .productPageItem div.buttons div.control-buttons form div.form-item.form-type-textfield.form-item-quantity input {
+      width: 50px;
+    }
+    .productPageItem div.buttons div.control-buttons form div.form-item.form-type-textfield.form-item-quantity {
+      left: 46%;
+    }
+    .owl-item.productPageItem div.buttons div.control-buttons button.incr {
+      right: 36%;
+    }
+    
+    
+    
+    
+    section.sale .content .container .row .col-lg-4 {
+      margin-bottom: 50px;
+    }
+    
+    main > section.about-company > .container > .row > .col-lg-6.right > p {
+      text-align: justify;
+    }
+    main > section.about-company > .container > .row > .col-lg-6.left > img {
+      width: 100%;
+      height: auto;
+    }
+    
+    #carousel-products .owl-item.productPageItem {
+      float: none;
+    }
+    
+    #carousel-products .owl-item.productPageItem .image-n-controls {
+      padding: 0 100px;
+      padding-bottom: 57px !important;
+    }
+    
+    
+    
+    
+    
+    
+    footer > .map-n-contact > .contact {
+      position: static;
+      color: #000;
+    }
+    
+    footer > .bottom {
+      margin-top: 0px;
+    }
+    
+    
+    header .owl-carousel .owl-item > .text {
+      width: 100%;
+    }
+    
+    
+    
+    header .top .lang.button .dropdown {
+      text-align: center;
+      width: 100%;
+    }
+    
+    
+  }
+  

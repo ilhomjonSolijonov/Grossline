@@ -1,0 +1,30 @@
+/* DEFINING FONTS */
+@font-face {
+  font-family: "Circe";
+  src: url(../fonts/Circe-Regular.woff);
+}
+
+@font-face {
+  font-family: "Circe Bold";
+  src: url(../fonts/Circe-Bold.woff);
+}
+
+@font-face {
+  font-family: "Circe Extra Bold";
+  src: url(../fonts/Circe-ExtraBold.woff);
+}
+
+@font-face {
+  font-family: "Circe Light";
+  src: url(../fonts/Circe-Light.woff);
+}
+
+@font-face {
+  font-family: "Circe Extra Light";
+  src: url(../fonts/Circe-ExtraLight.woff);
+}
+
+@font-face {
+  font-family: "Circe Thin";
+  src: url(../fonts/Circe-Thin.woff);
+}
