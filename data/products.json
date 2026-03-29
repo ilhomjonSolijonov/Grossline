@@ -1,0 +1,207 @@
+[
+  {
+    "id": "verstanorm",
+    "slug": "verstanorm",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/3_4.png?itok=kI_26ADE",
+    "name": { "ru": "ВЕРСТАНОРМ", "en": "VERSTANORM", "uz": "VERSTANORM" },
+    "subtitle": {
+      "ru": "Гепатопротекторный растительный сироп, 150 мл",
+      "en": "Hepatoprotective herbal syrup, 150 ml",
+      "uz": "Gepatoprotektiv o'simlik sirupi, 150 ml"
+    },
+    "action": {
+      "ru": "Гепатопротектор, стимулирующий регенерацию клеток печени, снижает воздействие токсинов, устраняет дискинезию желчевыводящих путей, улучшает аппетит и пищеварение.",
+      "en": "Hepatoprotector stimulating regeneration of liver cells, reduces toxin effects, eliminates bile duct dyskinesia, improves appetite and digestion.",
+      "uz": "Jigar hujayralarining regeneratsiyasini rag'batlantiruvchi gepatoprotector, toksinlar ta'sirini kamaytiradi, o't yo'llari diskineziyasini bartaraf etadi, ishtahani yaxshilaydi."
+    },
+    "composition": {
+      "ru": ["Красный корень (Hedȳsarum neglēctum) — антиоксидантное действие", "Бессмертник (Flores Helichrysi arenarli) — улучшает функцию печени", "Кориандр (Coriandrum sativum L.) — восстановление клеток печени", "Тысячелистник — противовоспалительное, желчегонное действие", "Шиповник (Fructus Rozae) — предотвращает патологии клеток", "Зверобой (Hypericum Perforatum L.) — защита органов пищеварения", "Расторопша (Sílybum mariánum L.) — регенерирует клетки печени"],
+      "en": ["Red root (Hedȳsarum neglēctum) — antioxidant action", "Immortelle (Flores Helichrysi arenarli) — improves liver function", "Coriander (Coriandrum sativum L.) — liver cell restoration", "Yarrow — anti-inflammatory, choleretic action", "Rosehip (Fructus Rozae) — prevents cell pathologies", "St. John's Wort (Hypericum Perforatum L.) — protects digestive organs", "Milk thistle (Sílybum mariánum L.) — regenerates liver cells"],
+      "uz": ["Qizil ildiz — antioksidant ta'sir", "Gulsafsar — jigar funksiyasini yaxshilaydi", "Koriander — jigar hujayralarini tiklash", "Arpabodiyon — yallig'lanishga qarshi, xoleret ta'sir", "Itburun — hujayra patologiyalarining oldini oladi", "Sariq gul (Zverboy) — hazm organlarini himoya qiladi", "Sut qoqio'ti — jigar hujayralarini regeneratsiya qiladi"]
+    },
+    "indications": {
+      "ru": "Хронический и острый гепатит, цирроз, жировая дегенерация печени, дискинезия желчевыводящих путей, холецистит.",
+      "en": "Chronic/acute hepatitis, cirrhosis, fatty liver degeneration, bile duct dyskinesia, cholecystitis.",
+      "uz": "Surunkali va o'tkir gepatit, jigar sirrozi, jigarning yog'li degeneratsiyasi, xoletsistit."
+    },
+    "contraindications": {
+      "ru": "Повышенная чувствительность к компонентам.",
+      "en": "Hypersensitivity to components.",
+      "uz": "Komponentlarga yuqori sezuvchanlik."
+    },
+    "dosing": {
+      "ru": "Дети 1–12 лет: 1–2 ч. ложки в день; Взрослые: 1–3 ст. ложки 3 раза в день. Курс: 20–30 дней.",
+      "en": "Children 1–12 years: 1–2 teaspoons daily; Adults: 1–3 tablespoons 3 times daily. Course: 20–30 days.",
+      "uz": "Bolalar 1–12 yosh: kuniga 1–2 choy qoshiq; Kattalar: kuniga 3 marta 1–3 osh qoshiq. Kurs: 20–30 kun."
+    },
+    "storage": {
+      "ru": "2–25°C, срок годности 2 года.",
+      "en": "2–25°C, shelf life 2 years.",
+      "uz": "2–25°C, yaroqlilik muddati 2 yil."
+    }
+  },
+  {
+    "id": "yodoprin",
+    "slug": "yodoprin",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/2_5.png?itok=sORZFfSY",
+    "name": { "ru": "ЙОДОПРИН", "en": "YODOPRIN", "uz": "YODOPRIN" },
+    "subtitle": {
+      "ru": "Растительный сироп на основе йода, 150 мл",
+      "en": "Iodine-based herbal syrup, 150 ml",
+      "uz": "Yod asosidagi o'simlik sirupi, 150 ml"
+    },
+    "action": {
+      "ru": "Лечение и профилактика заболеваний щитовидной железы. Йод необходим для нормальной функции щитовидной железы. Предотвращает эндемический зоб и последствия йодного дефицита.",
+      "en": "Treatment and prevention of thyroid disorders. Iodine is crucial for proper thyroid function. Prevents endemic goiter and iodine deficiency effects.",
+      "uz": "Qalqonsimon bez kasalliklarini davolash va profilaktika qilish. Yod qalqonsimon bezning normal ishlashi uchun zarur."
+    },
+    "composition": {
+      "ru": ["Ламинария (Laminaria J.V.Lamour) — основной источник йода", "Дурнишник обыкновенный (Xanthium strumarium) — йод для эндокринного здоровья", "Мята перечная (Mentha Pipirita L.) — вспомогательный компонент", "Календула лекарственная — нормализует давление и обмен веществ", "Зверобой (Hypericum Perforatum L.) — танины, флавоноиды", "Корень солодки (Glycyrhiza L.) — нормализует гормональный баланс щитовидной железы"],
+      "en": ["Kelp (Laminaria J.V.Lamour) — primary iodine source", "Common burdock (Xanthium strumarium) — iodine for endocrine health", "Peppermint (Mentha Pipirita L.) — supporting ingredient", "Medicinal calendula — normalizes blood pressure and metabolism", "St. John's Wort (Hypericum Perforatum L.) — tannins, flavonoids", "Licorice root (Glycyrhiza L.) — normalizes thyroid hormone balance"],
+      "uz": ["Laminaria — asosiy yod manbai", "Oddiy qoqio't — endokrin sog'liq uchun yod", "Yalpiz (Mentha Pipirita L.) — yordamchi komponent", "Dorivor qulupnay — qon bosimini va moddalar almashinuvini normallashtiradi", "Sariq gul — tanninlar, flavonoidlar", "Likorits ildizi — qalqonsimon bez gormon muvozanatini normallashtiradi"]
+    },
+    "indications": {
+      "ru": "Профилактика и лечение заболеваний щитовидной железы; профилактика йодного дефицита; эндемический зоб; состояние после операции на щитовидной железе.",
+      "en": "Prevention and treatment of thyroid disorders; iodine deficiency prevention; endemic goiter; post-surgical thyroid care.",
+      "uz": "Qalqonsimon bez kasalliklarini davolash va oldini olish; yod yetishmovchiligini oldini olish; endemik buqoq."
+    },
+    "contraindications": {
+      "ru": "Повышенная чувствительность к компонентам.",
+      "en": "Hypersensitivity to components.",
+      "uz": "Komponentlarga yuqori sezuvchanlik."
+    },
+    "dosing": {
+      "ru": "Дети до 12 лет: 1–2 ч. ложки; Дети от 12 лет и взрослые: 2 ч. ложки; Беременные и кормящие: 2–3 ч. ложки. Курс: 1–3 месяца.",
+      "en": "Children <12 years: 1–2 teaspoons; Children >12 and adults: 2 teaspoons; Pregnant/nursing: 2–3 teaspoons. Course: 1–3 months.",
+      "uz": "12 yoshgacha bolalar: 1–2 choy qoshiq; 12 yoshdan kattalar: 2 choy qoshiq; Homilador: 2–3 choy qoshiq. Kurs: 1–3 oy."
+    },
+    "storage": {
+      "ru": "2–25°C, срок годности 2 года.",
+      "en": "2–25°C, shelf life 2 years.",
+      "uz": "2–25°C, yaroqlilik muddati 2 yil."
+    }
+  },
+  {
+    "id": "frobell",
+    "slug": "frobell",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/1_5.png?itok=oxoPElYd",
+    "name": { "ru": "ФРОБЕЛЛ", "en": "FROBELL", "uz": "FROBELL" },
+    "subtitle": {
+      "ru": "Желудочно-кишечный сироп из лекарственных трав, 150 мл",
+      "en": "Gastrointestinal herbal syrup, 150 ml",
+      "uz": "Oshqozon-ichak o'simlik sirupi, 150 ml"
+    },
+    "action": {
+      "ru": "Эфирные масла фенхеля, флавоноиды создают антигазовый эффект. Ромашка устраняет кишечные спазмы, вздутие и диарею. Мелисса помогает при язве желудка, гастрите, колите.",
+      "en": "Fennel essential oils and flavonoids create anti-gas effect. Chamomile eliminates intestinal spasms, bloating and diarrhea. Lemon balm helps with stomach ulcers, gastritis, colitis.",
+      "uz": "Arpa bo'yi efir moylari va flavonoidlar gaz hosil bo'lishiga qarshi ta'sir ko'rsatadi. Papatiya ichak spazmlarini bartaraf etadi."
+    },
+    "composition": {
+      "ru": ["Сухой экстракт семян фенхеля", "Сухой экстракт цветков ромашки", "Сухой экстракт травы мелиссы", "Вспомогательные: глицерин, сорбат калия, ароматизаторы вишни и грейпфрута"],
+      "en": ["Dry fennel seed extract", "Dry chamomile flower extract", "Dry lemon balm herb extract", "Auxiliary: glycerin, potassium sorbate, cherry and grapefruit flavoring"],
+      "uz": ["Arpa bo'yi urug'i quruq ekstrakti", "Papatiya guli quruq ekstrakti", "Limoncha o'ti quruq ekstrakti", "Yordamchi: glitserin, kaliy sorbat, gilos va greypfrut aromati"]
+    },
+    "indications": {
+      "ru": "Избыточное газообразование (вздутие, метеоризм, диспепсия); кишечные колики у новорождённых; послеоперационное увеличение газов; отравление детергентами.",
+      "en": "Excessive gas formation (bloating, flatulence, dyspepsia); intestinal colic in newborns; post-operative gas increase; detergent poisoning.",
+      "uz": "Ortiqcha gaz hosil bo'lishi (meteorizm, dispepsiya); chaqaloqlarda ichak koliklari; operatsiyadan keyingi gaz oshishi."
+    },
+    "contraindications": {
+      "ru": "Индивидуальная непереносимость компонентов.",
+      "en": "Individual intolerance to components.",
+      "uz": "Komponentlarga individual toqatsizlik."
+    },
+    "dosing": {
+      "ru": "Новорождённые: 0.5–1.0 мл с кормлением; Дети 1–6 лет: 1.0–2.5 мл 3–4 раза в день; Дети 7–14 лет: 2.5–5.0 мл 3–4 раза в день; Взрослые: 5.0–7.5 мл 3–4 раза в день. Курс: 14 дней.",
+      "en": "Newborns: 0.5–1.0 ml with feeding; Children 1–6: 1.0–2.5 ml 3–4x daily; Children 7–14: 2.5–5.0 ml 3–4x daily; Adults: 5.0–7.5 ml 3–4x daily. Course: 14 days.",
+      "uz": "Yangi tug'ilganlar: 0.5–1.0 ml; 1–6 yosh: 1.0–2.5 ml kuniga 3–4 marta; 7–14 yosh: 2.5–5.0 ml; Kattalar: 5.0–7.5 ml. Kurs: 14 kun."
+    },
+    "storage": {
+      "ru": "2–25°C, срок годности 2 года.",
+      "en": "2–25°C, shelf life 2 years.",
+      "uz": "2–25°C, yaroqlilik muddati 2 yil."
+    }
+  },
+  {
+    "id": "neyrozol",
+    "slug": "neyrozol",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/5.png?itok=aObAGPbm",
+    "name": { "ru": "НЕЙРОЗОЛ", "en": "NEYROZOL", "uz": "NEYROZOL" },
+    "subtitle": {
+      "ru": "Растительный сироп для нервной системы, 150 мл",
+      "en": "Nervous system herbal syrup, 150 ml",
+      "uz": "Asab tizimi uchun o'simlik sirupi, 150 ml"
+    },
+    "action": {
+      "ru": "Улучшает функцию ЦНС, повышает психоэмоциональную устойчивость, нормализует сон, успокаивает в стрессовых ситуациях, укрепляет иммунитет.",
+      "en": "Improves CNS function, enhances psycho-emotional stability, normalizes sleep, promotes calmness in stressful situations, strengthens immunity.",
+      "uz": "MNS funksiyasini yaxshilaydi, psixo-emotsional barqarorlikni oshiradi, uyquni normallashtiradi, immunitetni mustahkamlaydi."
+    },
+    "composition": {
+      "ru": ["Мята перечная (Mentha Pipirita L.) — при бессоннице, депрессии, неврозах", "Душица (Origianum Vulgare) — седативное действие на ЦНС", "Календула (Flores Calendulae) — укрепляет стенки капилляров", "Мелисса (Mellisa Offcinails L.) — мигрень, бессонница, гипертония", "Шиповник (Rosa Canina) — стабилизирует сердечный ритм", "Пустырник (Herbae Leonuri) — снижает давление, уменьшает ЧСС", "Валериана (Valeriana Offcinails) — неврастения, нарушения сна"],
+      "en": ["Peppermint (Mentha Pipirita L.) — insomnia, depression, neuroses", "Oregano (Origianum Vulgare) — sedative action on CNS", "Calendula (Flores Calendulae) — strengthens capillary walls", "Lemon balm (Mellisa Offcinails L.) — migraines, insomnia, hypertension", "Rosehip (Rosa Canina) — stabilizes heart rhythm", "Motherwort (Herbae Leonuri) — lowers blood pressure", "Valerian (Valeriana Offcinails) — neurasthenia, sleep disorders"],
+      "uz": ["Yalpiz — uyqusizlik, depressiya, nevrozlar", "Zira (Origianum Vulgare) — MNS ga sedativ ta'sir", "Qulupnay guli — kapillyar devorlarini mustahkamlaydi", "Limoncha (Mellisa Offcinails L.) — migren, uyqusizlik, gipertenziya", "Itburun — yurak ritmini stabillashtiradi", "O'simta o'ti — qon bosimini tushiradi", "Valerian — nevroz, uyqu buzilishlari"]
+    },
+    "indications": {
+      "ru": "Функциональные расстройства ЦНС; длительный стресс; раздражительность; хроническая усталость; нарушения сна; психосоматические расстройства; климактерический синдром.",
+      "en": "Functional CNS disorders; prolonged stress; irritability; chronic fatigue; sleep disorders; psychosomatic disorders; menopausal syndrome.",
+      "uz": "MNS funksional buzilishlari; uzoq muddatli stress; asabiylashish; surunkali charchoq; uyqu buzilishlari; klimakterik sindrom."
+    },
+    "contraindications": {
+      "ru": "Повышенная чувствительность к компонентам.",
+      "en": "Hypersensitivity to components.",
+      "uz": "Komponentlarga yuqori sezuvchanlik."
+    },
+    "dosing": {
+      "ru": "Дети 1–12 лет: 1–2 ч. ложки 3 раза в день; Взрослые: 1–2 ст. ложки 3 раза в день. Курс: 20–30 дней.",
+      "en": "Children 1–12 years: 1–2 teaspoons 3x daily; Adults: 1–2 tablespoons 3x daily. Course: 20–30 days.",
+      "uz": "Bolalar 1–12 yosh: kuniga 3 marta 1–2 choy qoshiq; Kattalar: kuniga 3 marta 1–2 osh qoshiq. Kurs: 20–30 kun."
+    },
+    "storage": {
+      "ru": "2–25°C, срок годности 2 года.",
+      "en": "2–25°C, shelf life 2 years.",
+      "uz": "2–25°C, yaroqlilik muddati 2 yil."
+    }
+  },
+  {
+    "id": "sivellal",
+    "slug": "sivellal",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/4_2.png?itok=uB6VII2g",
+    "name": { "ru": "СИВЕЛЛАЛ", "en": "SIVELLAL", "uz": "SIVELLAL" },
+    "subtitle": {
+      "ru": "Растительный сироп для здоровья глаз, 150 мл",
+      "en": "Eye health herbal syrup, 150 ml",
+      "uz": "Ko'z salomatligi uchun o'simlik sirupi, 150 ml"
+    },
+    "action": {
+      "ru": "Защищает глаза от усталости, улучшает ночное зрение, снижает проницаемость капилляров, укрепляет сосуды сетчатки, улучшает зрительную функцию, оказывает антимикробное действие.",
+      "en": "Protects eyes from fatigue, improves night vision, reduces capillary permeability, strengthens retinal vessels, improves visual function, has antimicrobial action.",
+      "uz": "Ko'zlarni charchashdan himoya qiladi, tungi ko'rishni yaxshilaydi, to'r parda tomirlarini mustahkamlaydi, ko'rish funksiyasini yaxshilaydi."
+    },
+    "composition": {
+      "ru": ["Черника (Vaciinm myrtillus) — улучшает адаптацию зрения, нормализует внутриглазное давление", "Лаванда (Lavandula) — предотвращает воспаления, уничтожает бактерии и вирусы", "Календула (Flores Calendulae) — улучшает зрение, положительно влияет на глазные мышцы", "Аир болотный (Acorus calamus) — при катаракте и глаукоме", "Шиповник (Rosa Canina) — от усталости и перенапряжения глаз"],
+      "en": ["Blueberry (Vaciinm myrtillus) — improves vision adaptation, normalizes intraocular pressure", "Lavender (Lavandula) — prevents inflammation, destroys bacteria and viruses", "Calendula (Flores Calendulae) — improves vision, positively affects eye muscles", "Sweet flag (Acorus calamus) — for cataracts and glaucoma", "Rosehip (Rosa Canina) — for eye fatigue and overexertion"],
+      "uz": ["Ko'k smorodina — ko'rish moslanishini yaxshilaydi, ko'z ichidagi bosimni normallashtiradi", "Lavanda — yallig'lanishning oldini oladi, bakteriyalarni yo'q qiladi", "Qulupnay guli — ko'rishni yaxshilaydi, ko'z mushaklariga ijobiy ta'sir qiladi", "Qamish kalamus — ko'z oqishi va glaukomada yordam beradi", "Itburun — ko'z charchashi va ortiqcha zo'riqishdan"]
+    },
+    "indications": {
+      "ru": "Профилактика ухудшения зрения; высокие зрительные нагрузки (компьютер, вождение); сосудистая патология глаз (катаракта, глаукома, миопия); нарушения ночного зрения.",
+      "en": "Prevention of vision deterioration; high visual loads (computer work, driving); vascular eye pathology (cataracts, glaucoma, myopia); night vision disorders.",
+      "uz": "Ko'rish yomonlashishining oldini olish; yuqori ko'rish yuki (kompyuter, haydash); ko'zning tomir patologiyasi; tungi ko'rish buzilishlari."
+    },
+    "contraindications": {
+      "ru": "Индивидуальная непереносимость компонентов.",
+      "en": "Individual intolerance to components.",
+      "uz": "Komponentlarga individual toqatsizlik."
+    },
+    "dosing": {
+      "ru": "Дети от 3 лет: 1.5–2.0 мл 3 раза в день; Дети 7–14 лет: 2.5 мл 3 раза в день; Взрослые: 5.0 мл 3 раза в день. Курс: 20–30 дней.",
+      "en": "Children 3+: 1.5–2.0 ml 3x daily; Children 7–14: 2.5 ml 3x daily; Adults: 5.0 ml 3x daily. Course: 20–30 days.",
+      "uz": "3 yoshdan bolalar: 1.5–2.0 ml kuniga 3 marta; 7–14 yosh: 2.5 ml; Kattalar: 5.0 ml. Kurs: 20–30 kun."
+    },
+    "storage": {
+      "ru": "2–25°C, срок годности 2 года.",
+      "en": "2–25°C, shelf life 2 years.",
+      "uz": "2–25°C, yaroqlilik muddati 2 yil."
+    }
+  }
+]

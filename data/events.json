@@ -1,0 +1,102 @@
+[
+  {
+    "id": "dubay-2019",
+    "slug": "dubay-2019",
+    "date": "18.02.2019",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/eventimg/public/20190213_143713_0.jpg?itok=vH3QhFKs",
+    "title": { "ru": "Дубай-2019", "en": "Dubai-2019", "uz": "Dubay-2019" },
+    "description": {
+      "ru": "Тим-билдинг в Дубай 2019г. Сотрудники компании Grossline Pharm приняли участие в корпоративной поездке в Дубай, где прошли командообразующие мероприятия и тренинги.",
+      "en": "Team building in Dubai 2019. Grossline Pharm employees participated in a corporate trip to Dubai with team-building activities and trainings.",
+      "uz": "Dubai 2019 yil komanda qurilishi. Grossline Pharm xodimlari Dubayga korporativ sayohatda ishtirok etdi."
+    }
+  },
+  {
+    "id": "antaliya-2018",
+    "slug": "antaliya-2018",
+    "date": "15.10.2018",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/eventimg/public/dsc_8313.jpg?itok=SXnJjG46",
+    "title": { "ru": "Анталия 2018", "en": "Antalya 2018", "uz": "Antaliya 2018" },
+    "description": {
+      "ru": "Корпоративный выезд сотрудников компании Grossline Pharm в Анталию в 2018 году.",
+      "en": "Corporate trip of Grossline Pharm employees to Antalya in 2018.",
+      "uz": "Grossline Pharm xodimlarining 2018 yilda Antaliyaga korporativ sayohati."
+    }
+  },
+  {
+    "id": "uchastie-na-vystavke-v-tadzhikistane-0",
+    "slug": "uchastie-na-vystavke-v-tadzhikistane-0",
+    "date": "05.07.2018",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/eventimg/public/vistav_0.jpg?itok=V-0kfAz7",
+    "title": {
+      "ru": "Участие на выставке в Таджикистане",
+      "en": "Exhibition in Tajikistan",
+      "uz": "Tojikistondagi ko'rgazmada ishtirok etish"
+    },
+    "description": {
+      "ru": "Компания Grossline Pharm приняла участие в международной фармацевтической выставке в Таджикистане.",
+      "en": "Grossline Pharm participated in an international pharmaceutical exhibition in Tajikistan.",
+      "uz": "Grossline Pharm Tojikistondagi xalqaro farmatsevtika ko'rgazmasida ishtirok etdi."
+    }
+  },
+  {
+    "id": "korporativnyy-otdyh-v-antalii-0",
+    "slug": "korporativnyy-otdyh-v-antalii-0",
+    "date": "2018-01-01",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/eventimg/public/ant.jpg?itok=BoHTkVEj",
+    "title": {
+      "ru": "Корпоративный отдых в Анталии",
+      "en": "Corporate vacation in Antalya",
+      "uz": "Antaliyada korporativ dam olish"
+    },
+    "description": {
+      "ru": "Корпоративный отдых сотрудников компании в Анталии.",
+      "en": "Corporate vacation of company employees in Antalya.",
+      "uz": "Kompaniya xodimlarining Antaliyada korporativ dam olishi."
+    }
+  },
+  {
+    "id": "trening-na-prirode",
+    "slug": "trening-na-prirode",
+    "date": "2018-01-01",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/eventimg/public/1_0.jpg?itok=CdOXjTBw",
+    "title": {
+      "ru": "Тренинг на природе",
+      "en": "Nature training",
+      "uz": "Tabiatda trening"
+    },
+    "description": {
+      "ru": "Проведён тренинг на природе для сотрудников компании.",
+      "en": "A training session was held in nature for company employees.",
+      "uz": "Kompaniya xodimlari uchun tabiatda trening o'tkazildi."
+    }
+  },
+  {
+    "id": "trening-2017",
+    "slug": "trening-2017",
+    "date": "2017-01-01",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/eventimg/public/rad1.jpg?itok=OssaTyPn",
+    "title": { "ru": "Тренинг 2017", "en": "Training 2017", "uz": "Trening 2017" },
+    "description": {
+      "ru": "Корпоративный тренинг для сотрудников компании в 2017 году.",
+      "en": "Corporate training for company employees in 2017.",
+      "uz": "2017 yilda kompaniya xodimlari uchun korporativ trening."
+    }
+  },
+  {
+    "id": "konferenciya-v-italii",
+    "slug": "konferenciya-v-italii",
+    "date": "2019-01-01",
+    "image": "http://grossline.dst.uz/sites/default/files/styles/eventimg/public/konfv_1.jpg?itok=KvDykdBC",
+    "title": {
+      "ru": "Конференция в Италии",
+      "en": "Conference in Italy",
+      "uz": "Italiyada konferensiya"
+    },
+    "description": {
+      "ru": "Конференция в Италии. Представители компании Grossline Pharm приняли участие в международной конференции.",
+      "en": "Conference in Italy. Grossline Pharm representatives participated in an international conference.",
+      "uz": "Italiyada konferensiya. Grossline Pharm vakillari xalqaro konferensiyada ishtirok etdi."
+    }
+  }
+]

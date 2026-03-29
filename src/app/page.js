@@ -1,5 +1,2 @@
 import { redirect } from "next/navigation";
-
-export default function HomePage() {
-  redirect("/ru");
-}
+export default function Root() { redirect("/ru"); }
