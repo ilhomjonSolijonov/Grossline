@@ -38,20 +38,18 @@ export default async function AllProductsPage({ params }) {
             {lang === "uz" && "Sog'ligingiz uchun tabiiy o'simlik dori vositalari"}
           </p>
         </div>
-        <section className="section" style={{ background: "#f8faff" }}>
+        <section className="section" style={{ background: "#f7f8fa" }}>
           <div className="container">
-            <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }}>
+            <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
               {products.map((p) => (
                 <Link key={p.id} href={`/${lang}/${p.slug}`} style={{ textDecoration: "none" }}>
                   <div className="product-card" style={{ height: "100%" }}>
-                    <div className="product-card-img-wrap" style={{ width: 150, height: 150 }}>
-                      <img src={p.image} alt={p.name[lang]} style={{ height: 118, objectFit: "contain" }} />
+                    <div className="product-card-img-wrap">
+                      <img src={p.image} alt={p.name[lang]} style={{ height: 100, objectFit: "contain" }} />
                     </div>
-                    <h3 style={{ fontSize: 15, fontWeight: 800, color: "#0a1f5c", marginBottom: 8, letterSpacing: "0.3px" }}>{p.name[lang]}</h3>
-                    <p style={{ fontSize: 12, color: "#8896b3", lineHeight: 1.55, marginBottom: 18, flex: 1 }}>{p.subtitle[lang]}</p>
-                    <span className="btn-primary" style={{ fontSize: 13, padding: "9px 20px", boxShadow: "none", alignSelf: "center" }}>
-                      {tr.more}
-                    </span>
+                    <h3 style={{ fontSize: 14, fontWeight: 700, color: "#1c1c1e", marginBottom: 6 }}>{p.name[lang]}</h3>
+                    <p style={{ fontSize: 12, color: "#8e8e93", lineHeight: 1.55, marginBottom: 16, flex: 1 }}>{p.subtitle[lang]}</p>
+                    <span style={{ fontSize: 12, color: "#1a56db", fontWeight: 600 }}>{tr.more} →</span>
                   </div>
                 </Link>
               ))}

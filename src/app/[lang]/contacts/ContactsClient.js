@@ -41,16 +41,16 @@ export default function ContactsClient({ lang }) {
 
               {/* Contact info */}
               <div>
-                <h2 style={{ fontSize: "1.2rem", marginBottom: 20, color: "#0066cc", fontWeight: 700 }}>{lb.sectionTitle}</h2>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <h2 style={{ fontSize: "1rem", marginBottom: 20, color: "#1c1c1e", fontWeight: 700 }}>{lb.sectionTitle}</h2>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {contacts.map((item, i) => (
-                    <div key={i} style={{ display: "flex", gap: 16, padding: "16px 18px", background: "#f8f9ff", borderRadius: 10, alignItems: "flex-start" }}>
-                      <span style={{ fontSize: 20, flexShrink: 0, marginTop: 1 }}>{item.icon}</span>
+                    <div key={i} style={{ display: "flex", gap: 14, padding: "14px 16px", background: "#f7f8fa", border: "1px solid #e8ecf0", borderRadius: 8, alignItems: "flex-start" }}>
+                      <span style={{ fontSize: 18, flexShrink: 0, marginTop: 1 }}>{item.icon}</span>
                       <div>
-                        <div style={{ fontSize: 10, fontWeight: 700, color: "#0066cc", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 3 }}>{item.label}</div>
+                        <div style={{ fontSize: 10, fontWeight: 700, color: "#1a56db", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 3 }}>{item.label}</div>
                         {item.href
-                          ? <a href={item.href} style={{ fontSize: 14, color: "#333", textDecoration: "none", fontWeight: 500 }}>{item.value}</a>
-                          : <div style={{ fontSize: 14, color: "#333" }}>{item.value}</div>
+                          ? <a href={item.href} style={{ fontSize: 14, color: "#1c1c1e", textDecoration: "none", fontWeight: 500 }}>{item.value}</a>
+                          : <div style={{ fontSize: 14, color: "#555", lineHeight: 1.5 }}>{item.value}</div>
                         }
                       </div>
                     </div>
@@ -59,17 +59,17 @@ export default function ContactsClient({ lang }) {
               </div>
 
               {/* Form */}
-              <div style={{ background: "#fff", borderRadius: 14, padding: 28, boxShadow: "0 2px 16px rgba(0,0,0,0.09)" }}>
-                <h2 style={{ fontSize: "1.2rem", marginBottom: 20, color: "#0066cc", fontWeight: 700 }}>{lb.formTitle}</h2>
+              <div style={{ background: "#fff", borderRadius: 10, padding: 28, border: "1px solid #e8ecf0", boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
+                <h2 style={{ fontSize: "1rem", marginBottom: 20, color: "#1c1c1e", fontWeight: 700 }}>{lb.formTitle}</h2>
                 {sent ? (
-                  <div style={{ background: "#e8f5e9", color: "#2e7d32", borderRadius: 10, padding: 24, textAlign: "center", fontWeight: 600, fontSize: 15 }}>
-                    ✅ {lb.sent}
+                  <div style={{ background: "#f0f9f0", color: "#2e7d32", borderRadius: 8, padding: 24, textAlign: "center", fontWeight: 600, fontSize: 15 }}>
+                    {lb.sent}
                   </div>
                 ) : (
                   <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    <input required style={inp} placeholder={lb.namePh} onFocus={e => e.target.style.borderColor="#0066cc"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <input required type="email" style={inp} placeholder={lb.emailPh} onFocus={e => e.target.style.borderColor="#0066cc"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <textarea required style={{ ...inp, height: 110, resize: "vertical" }} placeholder={lb.msgPh} onFocus={e => e.target.style.borderColor="#0066cc"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
+                    <input required style={inp} placeholder={lb.namePh} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
+                    <input required type="email" style={inp} placeholder={lb.emailPh} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
+                    <textarea required style={{ ...inp, height: 110, resize: "vertical" }} placeholder={lb.msgPh} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
                     <button type="submit" className="btn-primary" style={{ padding: "12px" }}>{lb.submit}</button>
                   </form>
                 )}

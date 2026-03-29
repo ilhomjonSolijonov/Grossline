@@ -78,12 +78,12 @@ export default async function AboutPage({ params }) {
         </div>
 
         {/* Stats bar */}
-        <section style={{ background: "#0d6efd" }}>
+        <section style={{ background: "#1c2f4a", borderBottom: "1px solid #243650" }}>
           <div className="container grid-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
             {stats.map((s, i) => (
-              <div key={s.num} style={{ padding: "28px 20px", textAlign: "center", borderRight: i < 3 ? "1px solid rgba(255,255,255,0.15)" : "none" }}>
-                <div style={{ fontSize: "2.4rem", fontWeight: 900, color: "#fff", lineHeight: 1, letterSpacing: "-1px" }}>{s.num}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.75)", fontWeight: 600, marginTop: 6, textTransform: "uppercase", letterSpacing: "0.8px" }}>{s.label[lang]}</div>
+              <div key={s.num} style={{ padding: "24px 20px", textAlign: "center", borderRight: i < 3 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
+                <div style={{ fontSize: "2rem", fontWeight: 700, color: "#fff", lineHeight: 1 }}>{s.num}</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 5, textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>{s.label[lang]}</div>
               </div>
             ))}
           </div>
@@ -94,14 +94,16 @@ export default async function AboutPage({ params }) {
           <div className="container">
             <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "start" }}>
               <div>
-                <div className="section-label">{lang === "ru" ? "Наша история" : lang === "en" ? "Our story" : "Bizning tariximiz"}</div>
-                <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)", fontWeight: 800, color: "#0a1f5c", marginBottom: 24, letterSpacing: "-0.5px" }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#1a56db", marginBottom: 12 }}>
+                  {lang === "ru" ? "Наша история" : lang === "en" ? "Our story" : "Bizning tariximiz"}
+                </p>
+                <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)", fontWeight: 700, color: "#1c1c1e", marginBottom: 24, letterSpacing: "-0.3px", lineHeight: 1.3 }}>
                   {lang === "ru" && "Здоровье людей — наша главная цель"}
                   {lang === "en" && "People's health is our main goal"}
                   {lang === "uz" && "Odamlar salomatligi — bizning asosiy maqsadimiz"}
                 </h2>
                 {c.body.map((para, i) => (
-                  <p key={i} style={{ fontSize: 15, lineHeight: 1.85, color: "#4a5176", marginBottom: 16 }}>{para}</p>
+                  <p key={i} style={{ fontSize: 15, lineHeight: 1.8, color: "#555", marginBottom: 16 }}>{para}</p>
                 ))}
               </div>
 
@@ -109,14 +111,14 @@ export default async function AboutPage({ params }) {
                 <img
                   src="/images/for_gros1.jpg"
                   alt="About GrossLINE"
-                  style={{ borderRadius: 20, width: "100%", objectFit: "cover", height: 320, marginBottom: 24 }}
+                  style={{ borderRadius: 8, width: "100%", objectFit: "cover", height: 320, marginBottom: 20 }}
                 />
                 {/* Values */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                   {values.map(v => (
-                    <div key={v.en} style={{ background: "#f8faff", border: "1px solid #eef0f8", borderRadius: 12, padding: "16px 18px", display: "flex", alignItems: "center", gap: 12 }}>
-                      <span style={{ fontSize: 22 }}>{v.icon}</span>
-                      <span style={{ fontSize: 14, fontWeight: 700, color: "#0a1f5c" }}>{v[lang] || v.en}</span>
+                    <div key={v.en} style={{ background: "#f7f8fa", border: "1px solid #e8ecf0", borderRadius: 8, padding: "14px 16px", display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ fontSize: 20 }}>{v.icon}</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e" }}>{v[lang] || v.en}</span>
                     </div>
                   ))}
                 </div>
@@ -126,15 +128,17 @@ export default async function AboutPage({ params }) {
         </section>
 
         {/* Mission banner */}
-        <section style={{ background: "linear-gradient(135deg, #0a1f5c 0%, #0d6efd 100%)", padding: "56px 32px" }}>
-          <div className="container" style={{ textAlign: "center", maxWidth: 640 }}>
-            <div style={{ fontSize: 32, marginBottom: 16 }}>🏥</div>
-            <h3 style={{ fontSize: "clamp(1.3rem, 2.5vw, 1.7rem)", fontWeight: 800, color: "#fff", marginBottom: 14, letterSpacing: "-0.3px" }}>
+        <section style={{ background: "#1c2f4a", padding: "56px 32px" }}>
+          <div className="container" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto" }}>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 14 }}>
+              {lang === "ru" ? "Миссия" : lang === "en" ? "Mission" : "Missiya"}
+            </p>
+            <h3 style={{ fontSize: "clamp(1.3rem, 2.5vw, 1.7rem)", fontWeight: 700, color: "#fff", marginBottom: 16, letterSpacing: "-0.3px" }}>
               {lang === "ru" && "Наша миссия"}
               {lang === "en" && "Our mission"}
               {lang === "uz" && "Bizning missiyamiz"}
             </h3>
-            <p style={{ fontSize: 16, color: "rgba(255,255,255,0.8)", lineHeight: 1.8 }}>
+            <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.8 }}>
               {lang === "ru" && "Обеспечение населения высококачественными, доступными и безопасными лекарственными препаратами на растительной основе для улучшения качества жизни каждого человека."}
               {lang === "en" && "Providing the population with high-quality, affordable and safe plant-based medicines to improve the quality of life of every person."}
               {lang === "uz" && "Aholini har bir insonning hayot sifatini yaxshilash uchun yuqori sifatli, arzon va xavfsiz o'simlik asosidagi dori vositalarini taqdim etish."}

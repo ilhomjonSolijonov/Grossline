@@ -14,22 +14,22 @@ export async function generateMetadata({ params }) {
   const descs = {
     ru: "GrossLINE Pharm — фармацевтическая компания, основанная в 2015 году. Более 210 сотрудников. Качественные препараты из натуральных растений.",
     en: "GrossLINE Pharm — pharmaceutical company founded in 2015. Over 210 employees. Quality medicines from natural plants.",
-    uz: "GrossLINE Pharm — 2015 yilda tashkil etilgan farmatsevtika kompaniyasi. 210 dan ortiq xodim. Tabiiy o'simliklardan sifatli dori vositalari.",
+    uz: "GrossLINE Pharm — 2015 yilda tashkil etilgan farmatsevtika kompaniyasi. 210 dan ortiq xodim.",
   };
   return {
     title: titles[lang] || titles.ru,
     description: descs[lang] || descs.ru,
-    openGraph: {
-      title: titles[lang] || titles.ru,
-      description: descs[lang] || descs.ru,
-      images: ["/images/for_gros2.jpg"],
-    },
-    alternates: {
-      canonical: `https://grossline.uz/${lang}`,
-      languages: { ru: "/ru", en: "/en", uz: "/uz" },
-    },
+    openGraph: { title: titles[lang] || titles.ru, description: descs[lang] || descs.ru, images: ["/images/for_gros2.jpg"] },
+    alternates: { canonical: `https://grossline.uz/${lang}`, languages: { ru: "/ru", en: "/en", uz: "/uz" } },
   };
 }
+
+const stats = [
+  { num: "2015", label: { ru: "Год основания", en: "Founded", uz: "Tashkil etilgan" } },
+  { num: "210+", label: { ru: "Сотрудников", en: "Employees", uz: "Xodimlar" } },
+  { num: "5",    label: { ru: "Продуктов", en: "Products", uz: "Mahsulotlar" } },
+  { num: "4+",   label: { ru: "Рынков сбыта", en: "Markets", uz: "Bozorlar" } },
+];
 
 export default async function HomePage({ params }) {
   const { lang } = await params;
@@ -38,168 +38,106 @@ export default async function HomePage({ params }) {
   const events = await getEvents();
 
   const aboutText = {
-    ru: "Grossline Pharm основана в 2015 году. Сегодня в компании работает более 210 сотрудников. Предприятие последовательно проводит политику, направленную на создание эффективного и безопасного производства, поддерживая высокие стандарты качества лекарственных препаратов из натуральных растений.",
-    en: "Grossline Pharm was founded in 2015. Today the company employs more than 210 people. We consistently pursue policies aimed at creating efficient, safe production while maintaining high standards of quality for medicines derived from natural plants.",
-    uz: "Grossline Pharm 2015 yilda tashkil etilgan. Bugun kompaniyada 210 dan ortiq xodim ishlaydi. Korxona tabiiy o'simliklardan sifatli dori vositalarini ishlab chiqarishga qaratilgan siyosatni izchil olib boradi.",
+    ru: "Grossline Pharm основана в 2015 году. Сегодня в компании работает более 210 сотрудников. Все препараты изготовлены из натуральных лекарственных растений с применением современных технологий и строгого контроля качества.",
+    en: "Grossline Pharm was founded in 2015. Today the company employs more than 210 people. All medicines are made from natural medicinal plants using modern technologies and strict quality control.",
+    uz: "Grossline Pharm 2015 yilda tashkil etilgan. Bugun kompaniyada 210 dan ortiq xodim ishlaydi. Barcha dori vositalari zamonaviy texnologiyalar va qat'iy sifat nazorati yordamida tabiiy dorivor o'simliklardan tayyorlanadi.",
   };
-
-  const features = [
-    { icon: "🌿", title: { ru: "Натуральный состав", en: "Natural Composition", uz: "Tabiiy tarkib" }, desc: { ru: "Только растительные компоненты из экологически чистых регионов", en: "Only plant-based components from ecologically clean regions", uz: "Faqat ekologik toza hududlardan olingan o'simlik komponentlari" } },
-    { icon: "🔬", title: { ru: "Научный подход", en: "Scientific Approach", uz: "Ilmiy yondashuv" }, desc: { ru: "Разработки в сотрудничестве с ведущими учёными отрасли", en: "Developed in collaboration with leading industry scientists", uz: "Soha yetakchi olimlari bilan hamkorlikda ishlab chiqilgan" } },
-    { icon: "✅", title: { ru: "Контроль качества", en: "Quality Control", uz: "Sifat nazorati" }, desc: { ru: "Строгий контроль на каждом этапе производства", en: "Strict control at every stage of production", uz: "Ishlab chiqarishning har bosqichida qat'iy nazorat" } },
-    { icon: "🌍", title: { ru: "Международные стандарты", en: "International Standards", uz: "Xalqaro standartlar" }, desc: { ru: "Соответствие GMP и международным требованиям", en: "Compliance with GMP and international requirements", uz: "GMP va xalqaro talablarga muvofiqlik" } },
-  ];
-
-  const stats = [
-    { num: "2015", label: { ru: "Год основания", en: "Founded", uz: "Tashkil etilgan" } },
-    { num: "210+", label: { ru: "Сотрудников", en: "Employees", uz: "Xodimlar" } },
-    { num: "5", label: { ru: "Продуктов", en: "Products", uz: "Mahsulotlar" } },
-    { num: "4+", label: { ru: "Страны сбыта", en: "Markets", uz: "Bozorlar" } },
-  ];
 
   return (
     <>
       <Header lang={lang} active="home" />
       <main style={{ flex: 1 }}>
 
-        {/* ── HERO ── */}
-        <section style={{ position: "relative", minHeight: "min(580px, 80vw)", display: "flex", alignItems: "center", background: "#0a1f5c", overflow: "hidden" }}>
+        {/* HERO — full photo */}
+        <section style={{ position: "relative", height: "min(560px, 70vw)", minHeight: 320, overflow: "hidden" }}>
           <img
             src="/images/for_gros2.jpg"
             alt="GrossLINE Pharm"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.22 }}
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
           />
-          {/* Gradient overlay */}
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #0a1f5c 40%, rgba(13,110,253,0.7) 100%)" }} />
-
-          <div className="container" style={{ position: "relative", zIndex: 2, padding: "80px 32px" }}>
-            <div style={{ maxWidth: 620 }}>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(0,168,120,0.15)", border: "1px solid rgba(0,168,120,0.35)", borderRadius: 100, padding: "5px 14px", marginBottom: 24 }}>
-                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#00a878", display: "inline-block" }} />
-                <span style={{ fontSize: 12, fontWeight: 700, color: "#00e0a1", letterSpacing: "1px", textTransform: "uppercase" }}>
-                  {lang === "ru" ? "Фармацевтика нового поколения" : lang === "en" ? "Next Generation Pharmaceutics" : "Yangi avlod farmatsevtikasi"}
-                </span>
-              </div>
-              <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.2rem)", fontWeight: 900, color: "#fff", lineHeight: 1.15, marginBottom: 20, letterSpacing: "-1px" }}>
-                GrossLINE<br />
-                <span style={{ color: "#60a5fa" }}>Pharm</span>
-              </h1>
-              <p style={{ fontSize: "clamp(15px, 2.5vw, 17px)", color: "rgba(255,255,255,0.75)", lineHeight: 1.75, marginBottom: 36, maxWidth: 520 }}>
-                {lang === "ru" && "Качественные фармацевтические препараты из натуральных растений. Здоровье — наш приоритет."}
-                {lang === "en" && "Quality pharmaceutical products from natural plants. Your health is our priority."}
-                {lang === "uz" && "Tabiiy o'simliklardan sifatli farmatsevtik preparatlar. Sog'liq — bizning ustuvorligimiz."}
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(28,47,74,0.85) 0%, rgba(28,47,74,0.4) 60%, transparent 100%)" }} />
+          <div className="container" style={{ position: "relative", height: "100%", display: "flex", alignItems: "center" }}>
+            <div style={{ maxWidth: 560, color: "#fff" }}>
+              <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", marginBottom: 14 }}>
+                GrossLINE Pharm
               </p>
-              <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-                <Link href={`/${lang}/all-products`} className="btn-white">
-                  {tr.allProducts}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </Link>
-                <Link href={`/${lang}/o-kompanii`} className="btn-ghost">
-                  {tr.about}
-                </Link>
+              <h1 style={{ fontSize: "clamp(1.9rem, 4.5vw, 3rem)", fontWeight: 700, lineHeight: 1.2, marginBottom: 18, letterSpacing: "-0.5px" }}>
+                {lang === "ru" && <>Препараты из<br />натуральных растений</>}
+                {lang === "en" && <>Medicines from<br />natural plants</>}
+                {lang === "uz" && <>Tabiiy o'simliklardan<br />dori vositalari</>}
+              </h1>
+              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.75)", lineHeight: 1.7, marginBottom: 32, maxWidth: 440 }}>
+                {lang === "ru" && "Качество и безопасность — основа каждого нашего препарата с 2015 года."}
+                {lang === "en" && "Quality and safety are the foundation of every medicine we make since 2015."}
+                {lang === "uz" && "Sifat va xavfsizlik — 2015 yildan beri har bir dori vositamizning asosi."}
+              </p>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <Link href={`/${lang}/all-products`} className="btn-white">{tr.allProducts}</Link>
+                <Link href={`/${lang}/o-kompanii`} className="btn-ghost">{tr.about}</Link>
               </div>
             </div>
           </div>
-
-          {/* Decorative circle */}
-          <div style={{ position: "absolute", right: "-80px", top: "50%", transform: "translateY(-50%)", width: 520, height: 520, borderRadius: "50%", background: "rgba(13,110,253,0.12)", border: "1px solid rgba(96,165,250,0.15)", pointerEvents: "none" }} />
-          <div style={{ position: "absolute", right: "20px", top: "50%", transform: "translateY(-50%)", width: 360, height: 360, borderRadius: "50%", background: "rgba(13,110,253,0.08)", border: "1px solid rgba(96,165,250,0.1)", pointerEvents: "none" }} />
         </section>
 
-        {/* ── STATS BAR ── */}
-        <section style={{ background: "#0d6efd" }}>
-          <div className="container grid-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+        {/* STATS */}
+        <section style={{ background: "#1c2f4a", borderBottom: "1px solid #243650" }}>
+          <div className="container grid-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)" }}>
             {stats.map((s, i) => (
-              <div key={i} style={{ padding: "28px 20px", textAlign: "center", borderRight: i < 3 ? "1px solid rgba(255,255,255,0.15)" : "none" }}>
-                <div style={{ fontSize: "2.4rem", fontWeight: 900, color: "#fff", lineHeight: 1, letterSpacing: "-1px" }}>{s.num}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.75)", fontWeight: 600, marginTop: 6, textTransform: "uppercase", letterSpacing: "0.8px" }}>{s.label[lang]}</div>
+              <div key={i} style={{ padding: "24px 20px", textAlign: "center", borderRight: i < 3 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
+                <div style={{ fontSize: "2rem", fontWeight: 700, color: "#fff", lineHeight: 1 }}>{s.num}</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 5, textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>{s.label[lang]}</div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ── ABOUT ── */}
-        <section className="section" style={{ background: "#f8faff" }}>
-          <div className="container">
-            <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
-              <div>
-                <div className="section-label">{lang === "ru" ? "О нас" : lang === "en" ? "About us" : "Biz haqimizda"}</div>
-                <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.1rem)", fontWeight: 800, color: "#0a1f5c", marginBottom: 20, letterSpacing: "-0.5px", lineHeight: 1.25 }}>
-                  {lang === "ru" && "Качество. Наука. Забота о здоровье."}
-                  {lang === "en" && "Quality. Science. Care for health."}
-                  {lang === "uz" && "Sifat. Fan. Sog'liqqa g'amxo'rlik."}
-                </h2>
-                <p style={{ fontSize: 15, lineHeight: 1.85, color: "#4a5176", marginBottom: 28 }}>{aboutText[lang]}</p>
-                <Link href={`/${lang}/o-kompanii`} className="btn-primary">{tr.more}</Link>
-              </div>
-              <div style={{ position: "relative" }}>
-                <img
-                  src="/images/for_gros1.jpg"
-                  alt="About GrossLINE"
-                  style={{ borderRadius: 20, width: "100%", height: 380, objectFit: "cover", display: "block" }}
-                />
-                {/* Accent box */}
-                <div style={{ position: "absolute", bottom: -20, left: -20, background: "#0d6efd", color: "#fff", borderRadius: 16, padding: "18px 24px", boxShadow: "0 8px 32px rgba(13,110,253,0.35)" }}>
-                  <div style={{ fontSize: "1.8rem", fontWeight: 900, lineHeight: 1 }}>210+</div>
-                  <div style={{ fontSize: 12, opacity: 0.85, marginTop: 4, fontWeight: 600 }}>
-                    {lang === "ru" ? "Сотрудников" : lang === "en" ? "Employees" : "Xodimlar"}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHY US ── */}
+        {/* ABOUT */}
         <section className="section">
           <div className="container">
-            <div style={{ textAlign: "center", marginBottom: 52 }}>
-              <div className="section-label" style={{ justifyContent: "center" }}>
-                {lang === "ru" ? "Наши преимущества" : lang === "en" ? "Our advantages" : "Bizning ustunliklarimiz"}
+            <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
+              <div>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#1a56db", marginBottom: 12 }}>
+                  {lang === "ru" ? "О компании" : lang === "en" ? "About us" : "Kompaniya haqida"}
+                </p>
+                <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 1.9rem)", fontWeight: 700, color: "#1c1c1e", marginBottom: 16, lineHeight: 1.3, letterSpacing: "-0.3px" }}>
+                  {lang === "ru" && "Здоровье — наш главный приоритет"}
+                  {lang === "en" && "Health is our main priority"}
+                  {lang === "uz" && "Sog'liq — bizning asosiy ustuvorligimiz"}
+                </h2>
+                <p style={{ fontSize: 15, lineHeight: 1.8, color: "#555", marginBottom: 28 }}>{aboutText[lang]}</p>
+                <Link href={`/${lang}/o-kompanii`} className="btn-primary">{tr.more}</Link>
               </div>
-              <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 800, color: "#0a1f5c", letterSpacing: "-0.5px" }}>
-                {lang === "ru" && "Почему выбирают GrossLINE?"}
-                {lang === "en" && "Why choose GrossLINE?"}
-                {lang === "uz" && "Nima uchun GrossLINE?"}
-              </h2>
-            </div>
-            <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-              {features.map((f, i) => (
-                <div key={i} className="feature-item">
-                  <div className="feature-icon">{f.icon}</div>
-                  <div>
-                    <h3 style={{ fontSize: 16, fontWeight: 700, color: "#0a1f5c", marginBottom: 6 }}>{f.title[lang]}</h3>
-                    <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.7 }}>{f.desc[lang]}</p>
-                  </div>
-                </div>
-              ))}
+              <img
+                src="/images/for_gros1.jpg"
+                alt="About GrossLINE"
+                style={{ borderRadius: 8, width: "100%", height: 340, objectFit: "cover" }}
+              />
             </div>
           </div>
         </section>
 
-        {/* ── PRODUCTS ── */}
-        <section className="section" style={{ background: "#f8faff" }}>
+        {/* PRODUCTS */}
+        <section className="section" style={{ background: "#f7f8fa" }}>
           <div className="container">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 40, flexWrap: "wrap", gap: 16 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 36, flexWrap: "wrap", gap: 12 }}>
               <div>
-                <div className="section-label">{lang === "ru" ? "Продукция" : lang === "en" ? "Products" : "Mahsulotlar"}</div>
-                <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 800, color: "#0a1f5c", letterSpacing: "-0.5px" }}>{tr.products}</h2>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#1a56db", marginBottom: 6 }}>
+                  {lang === "ru" ? "Продукция" : lang === "en" ? "Products" : "Mahsulotlar"}
+                </p>
+                <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)", fontWeight: 700, color: "#1c1c1e", letterSpacing: "-0.3px" }}>{tr.products}</h2>
               </div>
               <Link href={`/${lang}/all-products`} className="btn-outline">{tr.allProducts}</Link>
             </div>
-            <div className="grid-5" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 20 }}>
+            <div className="grid-5" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 18 }}>
               {products.map(p => (
                 <Link key={p.id} href={`/${lang}/${p.slug}`} style={{ textDecoration: "none" }}>
                   <div className="product-card">
                     <div className="product-card-img-wrap">
-                      <img src={p.image} alt={p.name[lang]} style={{ height: 100, objectFit: "contain" }} />
+                      <img src={p.image} alt={p.name[lang]} style={{ height: 90, objectFit: "contain" }} />
                     </div>
-                    <h3 style={{ fontSize: 13, fontWeight: 800, color: "#0a1f5c", marginBottom: 6, letterSpacing: "0.3px" }}>{p.name[lang]}</h3>
-                    <p style={{ fontSize: 11, color: "#8896b3", lineHeight: 1.5, marginBottom: 14, flex: 1 }}>{p.subtitle[lang]}</p>
-                    <span style={{ fontSize: 12, color: "#0d6efd", fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
-                      {tr.more}
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </span>
+                    <h3 style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e", marginBottom: 5 }}>{p.name[lang]}</h3>
+                    <p style={{ fontSize: 11, color: "#8e8e93", lineHeight: 1.5, marginBottom: 14, flex: 1 }}>{p.subtitle[lang]}</p>
+                    <span style={{ fontSize: 12, color: "#1a56db", fontWeight: 600 }}>{tr.more} →</span>
                   </div>
                 </Link>
               ))}
@@ -207,35 +145,32 @@ export default async function HomePage({ params }) {
           </div>
         </section>
 
-        {/* ── EVENTS ── */}
+        {/* EVENTS */}
         <section className="section">
           <div className="container">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 40, flexWrap: "wrap", gap: 16 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 36, flexWrap: "wrap", gap: 12 }}>
               <div>
-                <div className="section-label">{lang === "ru" ? "Новости" : lang === "en" ? "News" : "Yangiliklar"}</div>
-                <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 800, color: "#0a1f5c", letterSpacing: "-0.5px" }}>{tr.events}</h2>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#1a56db", marginBottom: 6 }}>
+                  {lang === "ru" ? "События" : lang === "en" ? "Events" : "Tadbirlar"}
+                </p>
+                <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)", fontWeight: 700, color: "#1c1c1e", letterSpacing: "-0.3px" }}>{tr.events}</h2>
               </div>
               <Link href={`/${lang}/events`} className="btn-outline">{tr.allEvents}</Link>
             </div>
-            <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+            <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 22 }}>
               {events.slice(0, 3).map(ev => (
-                <Link key={ev.id} href={`/${lang}/events/${ev.slug}`} style={{ textDecoration: "none", display: "flex", flexDirection: "column" }}>
-                  <div className="event-card">
-                    <div className="img-zoom-wrap" style={{ position: "relative" }}>
-                      <img src={ev.image} alt={ev.title[lang]} style={{ width: "100%", height: 200, objectFit: "cover" }} />
-                      <div style={{ position: "absolute", top: 14, left: 14, background: "#0d6efd", color: "#fff", borderRadius: 8, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>
-                        {ev.date}
-                      </div>
+                <Link key={ev.id} href={`/${lang}/events/${ev.slug}`} style={{ textDecoration: "none", display: "flex" }}>
+                  <div className="event-card" style={{ width: "100%" }}>
+                    <div className="img-zoom-wrap">
+                      <img src={ev.image} alt={ev.title[lang]} style={{ width: "100%", height: 190, objectFit: "cover" }} />
                     </div>
-                    <div style={{ padding: "20px 22px 22px", flex: 1, display: "flex", flexDirection: "column" }}>
-                      <h3 style={{ fontSize: 15, fontWeight: 700, color: "#0a1f5c", marginBottom: 10, lineHeight: 1.45 }}>{ev.title[lang]}</h3>
-                      <p style={{ fontSize: 13, color: "#6b7280", lineHeight: 1.65, flex: 1, marginBottom: 16 }}>
+                    <div style={{ padding: "16px 18px 20px", flex: 1, display: "flex", flexDirection: "column" }}>
+                      <span style={{ fontSize: 11, color: "#8e8e93", fontWeight: 600, marginBottom: 8 }}>{ev.date}</span>
+                      <h3 style={{ fontSize: 14, fontWeight: 700, color: "#1c1c1e", marginBottom: 8, lineHeight: 1.4 }}>{ev.title[lang]}</h3>
+                      <p style={{ fontSize: 13, color: "#666", lineHeight: 1.6, flex: 1, marginBottom: 14 }}>
                         {ev.description[lang].slice(0, 90)}{ev.description[lang].length > 90 ? "…" : ""}
                       </p>
-                      <span style={{ fontSize: 13, color: "#0d6efd", fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
-                        {tr.more}
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                      </span>
+                      <span style={{ fontSize: 13, color: "#1a56db", fontWeight: 600 }}>{tr.more} →</span>
                     </div>
                   </div>
                 </Link>
@@ -244,20 +179,22 @@ export default async function HomePage({ params }) {
           </div>
         </section>
 
-        {/* ── CTA BANNER ── */}
-        <section style={{ background: "linear-gradient(135deg, #0a1f5c 0%, #0d6efd 100%)", padding: "64px 32px" }}>
-          <div className="container" style={{ textAlign: "center" }}>
-            <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.1rem)", fontWeight: 800, color: "#fff", marginBottom: 16, letterSpacing: "-0.5px" }}>
-              {lang === "ru" && "Есть вопросы? Свяжитесь с нами"}
-              {lang === "en" && "Have questions? Contact us"}
-              {lang === "uz" && "Savollaringiz bormi? Biz bilan bog'laning"}
-            </h2>
-            <p style={{ color: "rgba(255,255,255,0.75)", fontSize: 16, marginBottom: 32, maxWidth: 480, margin: "0 auto 32px" }}>
-              {lang === "ru" && "Наши специалисты готовы ответить на все ваши вопросы о продукции."}
-              {lang === "en" && "Our specialists are ready to answer all your questions about our products."}
-              {lang === "uz" && "Bizning mutaxassislarimiz mahsulotlarimiz haqidagi barcha savollaringizga javob berishga tayyor."}
-            </p>
-            <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
+        {/* CTA */}
+        <section style={{ background: "#1c2f4a", padding: "56px 32px" }}>
+          <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 24 }}>
+            <div>
+              <h2 style={{ fontSize: "clamp(1.3rem, 2.5vw, 1.7rem)", fontWeight: 700, color: "#fff", marginBottom: 8 }}>
+                {lang === "ru" && "Остались вопросы?"}
+                {lang === "en" && "Any questions?"}
+                {lang === "uz" && "Savollaringiz bormi?"}
+              </h2>
+              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 15 }}>
+                {lang === "ru" && "Свяжитесь с нами — ответим на все вопросы."}
+                {lang === "en" && "Contact us — we'll answer all your questions."}
+                {lang === "uz" && "Biz bilan bog'laning — barcha savollaringizga javob beramiz."}
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <Link href={`/${lang}/contacts`} className="btn-white">{tr.contacts}</Link>
               <a href="tel:+998712000771" className="btn-ghost">+998 71 200 07 71</a>
             </div>

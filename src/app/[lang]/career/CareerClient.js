@@ -65,11 +65,11 @@ export default function CareerClient({ lang }) {
 
               {/* Job info */}
               <div>
-                <h2 style={{ color: "#0066cc", fontSize: "1.1rem", marginBottom: 10, fontWeight: 700 }}>{c.jobTitle}</h2>
+                <h2 style={{ color: "#1a56db", fontSize: "1rem", marginBottom: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>{c.jobTitle}</h2>
                 <p style={{ color: "#555", lineHeight: 1.75, marginBottom: 28, fontSize: 15 }}>{c.intro}</p>
                 {c.sections.map((s) => (
                   <div key={s.heading} style={{ marginBottom: 22 }}>
-                    <h3 style={{ fontSize: 14, fontWeight: 700, color: "#0d1b3e", marginBottom: 10, borderLeft: "3px solid #0066cc", paddingLeft: 10, margin: "0 0 10px" }}>{s.heading}</h3>
+                    <h3 style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e", borderLeft: "3px solid #1a56db", paddingLeft: 10, margin: "0 0 10px" }}>{s.heading}</h3>
                     <ul style={{ margin: 0, paddingLeft: 20 }}>
                       {s.items.map((item, i) => (
                         <li key={i} style={{ marginBottom: 7, fontSize: 14, color: "#555", lineHeight: 1.65 }}>{item}</li>
@@ -82,21 +82,21 @@ export default function CareerClient({ lang }) {
               {/* Application form */}
               <div
                 className="career-sticky"
-                style={{ background: "#fff", borderRadius: 14, padding: 28, boxShadow: "0 2px 16px rgba(0,0,0,0.09)", position: "sticky", top: 88 }}
+                style={{ background: "#fff", borderRadius: 10, padding: 28, border: "1px solid #e8ecf0", boxShadow: "0 4px 16px rgba(0,0,0,0.06)", position: "sticky", top: 88 }}
               >
-                <h3 style={{ margin: "0 0 20px", color: "#0066cc", fontSize: "1.05rem" }}>{c.form.title}</h3>
+                <h3 style={{ margin: "0 0 20px", color: "#1c1c1e", fontSize: "1rem", fontWeight: 700 }}>{c.form.title}</h3>
                 {sent ? (
-                  <div style={{ background: "#e8f5e9", color: "#2e7d32", borderRadius: 10, padding: 20, textAlign: "center", fontWeight: 600, fontSize: 15 }}>
-                    ✅ {c.form.sent}
+                  <div style={{ background: "#f0f9f0", color: "#2e7d32", borderRadius: 8, padding: 20, textAlign: "center", fontWeight: 600, fontSize: 15 }}>
+                    {c.form.sent}
                   </div>
                 ) : (
                   <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} style={{ display: "flex", flexDirection: "column", gap: 11 }}>
-                    <input required style={inp} placeholder={c.form.name} onFocus={e => e.target.style.borderColor="#0066cc"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <input required style={inp} placeholder={c.form.lastName} onFocus={e => e.target.style.borderColor="#0066cc"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <input required style={inp} placeholder={c.form.edu} onFocus={e => e.target.style.borderColor="#0066cc"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <textarea required style={{ ...inp, height: 78, resize: "vertical" }} placeholder={c.form.exp} onFocus={e => e.target.style.borderColor="#0066cc"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <input required style={inp} placeholder={c.form.phone} onFocus={e => e.target.style.borderColor="#0066cc"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <input required type="email" style={inp} placeholder={c.form.email} onFocus={e => e.target.style.borderColor="#0066cc"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
+                    <input required style={inp} placeholder={c.form.name} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
+                    <input required style={inp} placeholder={c.form.lastName} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
+                    <input required style={inp} placeholder={c.form.edu} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
+                    <textarea required style={{ ...inp, height: 78, resize: "vertical" }} placeholder={c.form.exp} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
+                    <input required style={inp} placeholder={c.form.phone} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
+                    <input required type="email" style={inp} placeholder={c.form.email} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
                     <button type="submit" className="btn-primary" style={{ marginTop: 4, padding: "12px" }}>{c.form.submit}</button>
                   </form>
                 )}

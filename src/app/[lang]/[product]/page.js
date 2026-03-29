@@ -45,24 +45,24 @@ export default async function ProductPage({ params }) {
 
               {/* Sidebar: image + back */}
               <div style={{ textAlign: "center" }}>
-                <div style={{ background: "#f8f9ff", borderRadius: 14, padding: 28, marginBottom: 16 }}>
+                <div style={{ background: "#f7f8fa", border: "1px solid #e8ecf0", borderRadius: 8, padding: 24, marginBottom: 16 }}>
                   <img src={p.image} alt={p.name[lang]} style={{ maxHeight: 260, objectFit: "contain", width: "100%" }} />
                 </div>
-                <Link href={`/${lang}/all-products`} style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#0066cc", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>
+                <Link href={`/${lang}/all-products`} style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#1a56db", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>
                   ← {tr.allProducts}
                 </Link>
 
                 {/* Other products */}
                 {others.length > 0 && (
                   <div style={{ marginTop: 28, textAlign: "left" }}>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 12 }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: "#8e8e93", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 12 }}>
                       {lang === "ru" ? "Другие продукты" : lang === "en" ? "Other products" : "Boshqa mahsulotlar"}
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                       {others.map((op) => (
-                        <Link key={op.id} href={`/${lang}/${op.slug}`} style={{ display: "flex", gap: 10, alignItems: "center", textDecoration: "none", padding: "8px 10px", borderRadius: 8, background: "#f8f9ff" }}>
-                          <img src={op.image} alt={op.name[lang]} style={{ width: 40, height: 40, objectFit: "contain" }} />
-                          <span style={{ fontSize: 13, fontWeight: 600, color: "#0d1b3e" }}>{op.name[lang]}</span>
+                        <Link key={op.id} href={`/${lang}/${op.slug}`} style={{ display: "flex", gap: 10, alignItems: "center", textDecoration: "none", padding: "8px 10px", borderRadius: 8, background: "#f7f8fa", border: "1px solid #e8ecf0" }}>
+                          <img src={op.image} alt={op.name[lang]} style={{ width: 38, height: 38, objectFit: "contain" }} />
+                          <span style={{ fontSize: 13, fontWeight: 600, color: "#1c1c1e" }}>{op.name[lang]}</span>
                         </Link>
                       ))}
                     </div>
@@ -71,7 +71,7 @@ export default async function ProductPage({ params }) {
               </div>
 
               {/* Details */}
-              <div style={{ background: "#fff", borderRadius: 14, padding: "28px 32px", boxShadow: "0 2px 12px rgba(0,0,0,0.07)" }}>
+              <div style={{ background: "#fff", borderRadius: 10, padding: "28px 32px", border: "1px solid #e8ecf0", boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}>
                 <Section title={tr.action} content={p.action[lang]} />
                 <Section title={tr.composition}>
                   <ul style={{ margin: 0, paddingLeft: 20 }}>
@@ -96,8 +96,8 @@ export default async function ProductPage({ params }) {
 
 function Section({ title, content, children, last }) {
   return (
-    <div style={{ marginBottom: last ? 0 : 22, borderBottom: last ? "none" : "1px solid #f0f2f6", paddingBottom: last ? 0 : 18 }}>
-      <h3 style={{ fontSize: 11, fontWeight: 700, color: "#0066cc", textTransform: "uppercase", letterSpacing: "1px", margin: "0 0 8px" }}>
+    <div style={{ marginBottom: last ? 0 : 22, borderBottom: last ? "none" : "1px solid #e8ecf0", paddingBottom: last ? 0 : 18 }}>
+      <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1a56db", textTransform: "uppercase", letterSpacing: "1px", margin: "0 0 8px" }}>
         {title}
       </h3>
       {content && <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#555" }}>{content}</p>}
