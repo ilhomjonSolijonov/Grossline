@@ -22,7 +22,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: titles[lang] || titles.ru,
       description: descs[lang] || descs.ru,
-      images: ["http://grossline.dst.uz/sites/default/files/styles/bannerstyle/public/for_gros2.jpg?itok=-g-Em8w2"],
+      images: ["/images/for_gros2.jpg"],
     },
     alternates: {
       canonical: `https://grossline.uz/${lang}`,
@@ -32,8 +32,8 @@ export async function generateMetadata({ params }) {
 }
 
 const banners = [
-  "http://grossline.dst.uz/sites/default/files/styles/bannerstyle/public/for_gros2.jpg?itok=-g-Em8w2",
-  "http://grossline.dst.uz/sites/default/files/styles/bannerstyle/public/for_gros1.jpg?itok=w-ld4A20",
+  "/images/for_gros2.jpg",
+  "/images/for_gros1.jpg",
 ];
 
 export default async function HomePage({ params }) {

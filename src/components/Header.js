@@ -60,7 +60,7 @@ export default function Header({ lang, active }) {
       <div className="container" style={{ display: "flex", alignItems: "center", height: 68, padding: "0 24px" }}>
         <Link href={`/${lang}`} style={{ textDecoration: "none", flexShrink: 0 }}>
           <img
-            src="http://grossline.dst.uz/sites/default/files/logo-header.png"
+            src="/images/logo-header.png"
             alt="GrossLINE pharm"
             style={{ height: 44 }}
           />

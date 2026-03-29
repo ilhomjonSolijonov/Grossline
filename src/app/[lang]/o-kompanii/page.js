@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: titles[lang] || titles.ru,
       description: descs[lang] || descs.ru,
-      images: ["http://grossline.dst.uz/sites/default/files/styles/bannerstyle/public/for_gros1.jpg?itok=w-ld4A20"],
+      images: ["/images/for_gros1.jpg"],
     },
     alternates: { canonical: `https://grossline.uz/${lang}/o-kompanii` },
   };
@@ -68,7 +68,7 @@ export default async function AboutPage({ params }) {
                 ))}
               </div>
               <img
-                src="http://grossline.dst.uz/sites/default/files/styles/bannerstyle/public/for_gros1.jpg?itok=w-ld4A20"
+                src="/images/for_gros1.jpg"
                 alt="About Grossline"
                 style={{ borderRadius: 12, width: "100%", objectFit: "cover", height: 340 }}
               />

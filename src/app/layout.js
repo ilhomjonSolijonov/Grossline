@@ -20,7 +20,7 @@ export const metadata = {
     description: "GrossLINE Pharm — фармацевтическая компания, основанная в 2015 году. Более 210 сотрудников.",
     images: [
       {
-        url: "http://grossline.dst.uz/sites/default/files/logo-header.png",
+        url: "/images/logo-header.png",
         width: 400,
         height: 120,
         alt: "GrossLINE Pharm Logo",
@@ -31,7 +31,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "GrossLINE Pharm",
     description: "Фармацевтическая компания из Узбекистана",
-    images: ["http://grossline.dst.uz/sites/default/files/logo-header.png"],
+    images: ["/images/logo-header.png"],
   },
   robots: {
     index: true,
@@ -44,9 +44,9 @@ export const metadata = {
     },
   },
   icons: {
-    icon: "http://grossline.dst.uz/sites/default/files/logo-header.png",
-    shortcut: "http://grossline.dst.uz/sites/default/files/logo-header.png",
-    apple: "http://grossline.dst.uz/sites/default/files/logo-header.png",
+    icon: "/images/logo-header.png",
+    shortcut: "/images/logo-header.png",
+    apple: "/images/logo-header.png",
   },
 };
 

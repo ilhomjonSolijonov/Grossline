@@ -2,7 +2,7 @@
   {
     "id": "verstanorm",
     "slug": "verstanorm",
-    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/3_4.png?itok=kI_26ADE",
+    "image": "/images/3_4.png",
     "name": { "ru": "ВЕРСТАНОРМ", "en": "VERSTANORM", "uz": "VERSTANORM" },
     "subtitle": {
       "ru": "Гепатопротекторный растительный сироп, 150 мл",
@@ -43,7 +43,7 @@
   {
     "id": "yodoprin",
     "slug": "yodoprin",
-    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/2_5.png?itok=sORZFfSY",
+    "image": "/images/2_5.png",
     "name": { "ru": "ЙОДОПРИН", "en": "YODOPRIN", "uz": "YODOPRIN" },
     "subtitle": {
       "ru": "Растительный сироп на основе йода, 150 мл",
@@ -84,7 +84,7 @@
   {
     "id": "frobell",
     "slug": "frobell",
-    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/1_5.png?itok=oxoPElYd",
+    "image": "/images/1_5.png",
     "name": { "ru": "ФРОБЕЛЛ", "en": "FROBELL", "uz": "FROBELL" },
     "subtitle": {
       "ru": "Желудочно-кишечный сироп из лекарственных трав, 150 мл",
@@ -125,7 +125,7 @@
   {
     "id": "neyrozol",
     "slug": "neyrozol",
-    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/5.png?itok=aObAGPbm",
+    "image": "/images/5.png",
     "name": { "ru": "НЕЙРОЗОЛ", "en": "NEYROZOL", "uz": "NEYROZOL" },
     "subtitle": {
       "ru": "Растительный сироп для нервной системы, 150 мл",
@@ -166,7 +166,7 @@
   {
     "id": "sivellal",
     "slug": "sivellal",
-    "image": "http://grossline.dst.uz/sites/default/files/styles/productimage/public/4_2.png?itok=uB6VII2g",
+    "image": "/images/4_2.png",
     "name": { "ru": "СИВЕЛЛАЛ", "en": "SIVELLAL", "uz": "SIVELLAL" },
     "subtitle": {
       "ru": "Растительный сироп для здоровья глаз, 150 мл",

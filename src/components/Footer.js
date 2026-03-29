@@ -17,7 +17,7 @@ export default function Footer({ lang }) {
         {/* Brand */}
         <div>
           <img
-            src="http://grossline.dst.uz/sites/default/files/logo-header.png"
+            src="/images/logo-header.png"
             alt="GrossLINE"
             style={{ height: 38, filter: "brightness(0) invert(1)", marginBottom: 14 }}
           />

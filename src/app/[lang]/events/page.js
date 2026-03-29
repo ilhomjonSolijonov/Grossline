@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
       : "GrossLINE Pharm kompaniyasining barcha tadbirlari.",
     openGraph: {
       title: `${tr.events} | GrossLINE Pharm`,
-      images: ["http://grossline.dst.uz/sites/default/files/logo-header.png"],
+      images: ["/images/logo-header.png"],
     },
   };
 }

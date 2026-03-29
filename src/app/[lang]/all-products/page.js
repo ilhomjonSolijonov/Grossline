@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
       : "GrossLINE Pharm barcha farmatsevtik mahsulotlari — salomatlik uchun tabiiy o'simlik siroplaari.",
     openGraph: {
       title: `${tr.allProducts} | GrossLINE Pharm`,
-      images: ["http://grossline.dst.uz/sites/default/files/logo-header.png"],
+      images: ["/images/logo-header.png"],
     },
   };
 }
