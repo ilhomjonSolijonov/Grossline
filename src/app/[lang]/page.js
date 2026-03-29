@@ -221,11 +221,8 @@ export default async function HomePage({ params }) {
               {events.slice(0, 3).map(ev => (
                 <Link key={ev.id} href={`/${lang}/events/${ev.slug}`} style={{ textDecoration: "none", display: "flex", flexDirection: "column" }}>
                   <div className="event-card">
-                    <div style={{ position: "relative", overflow: "hidden" }}>
-                      <img src={ev.image} alt={ev.title[lang]} style={{ width: "100%", height: 200, objectFit: "cover", transition: "transform 0.4s" }}
-                        onMouseEnter={e => e.target.style.transform="scale(1.05)"}
-                        onMouseLeave={e => e.target.style.transform="scale(1)"}
-                      />
+                    <div className="img-zoom-wrap" style={{ position: "relative" }}>
+                      <img src={ev.image} alt={ev.title[lang]} style={{ width: "100%", height: 200, objectFit: "cover" }} />
                       <div style={{ position: "absolute", top: 14, left: 14, background: "#0d6efd", color: "#fff", borderRadius: 8, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>
                         {ev.date}
                       </div>

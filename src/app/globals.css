@@ -304,6 +304,11 @@ p { margin: 0; }
 .admin-table tr:last-child td { border-bottom: none; }
 .admin-table tr:hover td { background: #fafbff; }
 
+/* ── Image zoom on card hover ── */
+.img-zoom-wrap { overflow: hidden; }
+.img-zoom-wrap img { transition: transform 0.4s ease; }
+.img-zoom-wrap:hover img { transform: scale(1.05); }
+
 /* ── Animations ── */
 @keyframes spin { to { transform: rotate(360deg); } }
 
