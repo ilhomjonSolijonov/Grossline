@@ -9,15 +9,8 @@ export async function generateMetadata({ params }) {
   const tr = t[lang];
   return {
     title: `${tr.events} | GrossLINE Pharm`,
-    description: lang === "ru"
-      ? "Все события и мероприятия компании GrossLINE Pharm."
-      : lang === "en"
-      ? "All events and activities of GrossLINE Pharm company."
-      : "GrossLINE Pharm kompaniyasining barcha tadbirlari.",
-    openGraph: {
-      title: `${tr.events} | GrossLINE Pharm`,
-      images: ["/images/logo-header.png"],
-    },
+    description: lang === "ru" ? "Все события и мероприятия компании GrossLINE Pharm." : lang === "en" ? "All events and activities of GrossLINE Pharm company." : "GrossLINE Pharm kompaniyasining barcha tadbirlari.",
+    openGraph: { title: `${tr.events} | GrossLINE Pharm`, images: ["/images/logo-header.png"] },
   };
 }
 
@@ -32,21 +25,36 @@ export default async function EventsPage({ params }) {
       <main style={{ flex: 1 }}>
         <div className="page-hero">
           <h1>{tr.events}</h1>
+          <p style={{ marginTop: 12 }}>
+            {lang === "ru" && "Корпоративные мероприятия и события компании"}
+            {lang === "en" && "Corporate events and company news"}
+            {lang === "uz" && "Korporativ tadbirlar va kompaniya yangiliklari"}
+          </p>
         </div>
-        <section className="section">
+        <section className="section" style={{ background: "#f8faff" }}>
           <div className="container">
             <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
               {events.map((ev) => (
-                <Link key={ev.id} href={`/${lang}/events/${ev.slug}`} style={{ textDecoration: "none" }}>
-                  <div className="card" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                    <img src={ev.image} alt={ev.title[lang]} style={{ width: "100%", height: 210, objectFit: "cover" }} />
-                    <div style={{ padding: 20, flex: 1, display: "flex", flexDirection: "column" }}>
-                      <div style={{ fontSize: 12, color: "#999", marginBottom: 8 }}>{ev.date}</div>
-                      <h3 style={{ fontSize: 15, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.4, color: "#0d1b3e" }}>{ev.title[lang]}</h3>
-                      <p style={{ fontSize: 13, color: "#666", margin: "0 0 14px", lineHeight: 1.6, flex: 1 }}>
-                        {ev.description[lang].slice(0, 100)}{ev.description[lang].length > 100 ? "…" : ""}
+                <Link key={ev.id} href={`/${lang}/events/${ev.slug}`} style={{ textDecoration: "none", display: "flex" }}>
+                  <div className="event-card" style={{ width: "100%" }}>
+                    <div style={{ position: "relative", overflow: "hidden" }}>
+                      <img src={ev.image} alt={ev.title[lang]} style={{ width: "100%", height: 210, objectFit: "cover", transition: "transform 0.4s" }}
+                        onMouseEnter={e => e.target.style.transform = "scale(1.05)"}
+                        onMouseLeave={e => e.target.style.transform = "scale(1)"}
+                      />
+                      <div style={{ position: "absolute", top: 14, left: 14, background: "#0d6efd", color: "#fff", borderRadius: 8, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>
+                        {ev.date}
+                      </div>
+                    </div>
+                    <div style={{ padding: "20px 22px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
+                      <h3 style={{ fontSize: 15, fontWeight: 700, color: "#0a1f5c", marginBottom: 10, lineHeight: 1.45 }}>{ev.title[lang]}</h3>
+                      <p style={{ fontSize: 13, color: "#6b7280", lineHeight: 1.65, flex: 1, marginBottom: 18 }}>
+                        {ev.description[lang].slice(0, 110)}{ev.description[lang].length > 110 ? "…" : ""}
                       </p>
-                      <span style={{ fontSize: 13, color: "#0066cc", fontWeight: 600 }}>{tr.more} →</span>
+                      <span style={{ fontSize: 13, color: "#0d6efd", fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
+                        {tr.more}
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      </span>
                     </div>
                   </div>
                 </Link>

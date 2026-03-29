@@ -32,17 +32,26 @@ export default async function AllProductsPage({ params }) {
       <main style={{ flex: 1 }}>
         <div className="page-hero">
           <h1>{tr.allProducts}</h1>
+          <p style={{ marginTop: 12 }}>
+            {lang === "ru" && "Натуральные растительные препараты для вашего здоровья"}
+            {lang === "en" && "Natural herbal medicines for your health"}
+            {lang === "uz" && "Sog'ligingiz uchun tabiiy o'simlik dori vositalari"}
+          </p>
         </div>
-        <section className="section">
+        <section className="section" style={{ background: "#f8faff" }}>
           <div className="container">
             <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }}>
               {products.map((p) => (
                 <Link key={p.id} href={`/${lang}/${p.slug}`} style={{ textDecoration: "none" }}>
-                  <div className="card" style={{ textAlign: "center", padding: "28px 16px" }}>
-                    <img src={p.image} alt={p.name[lang]} style={{ height: 150, objectFit: "contain", marginBottom: 14 }} />
-                    <h3 style={{ fontSize: 15, fontWeight: 700, margin: "0 0 6px", color: "#222" }}>{p.name[lang]}</h3>
-                    <p style={{ fontSize: 12, color: "#888", margin: "0 0 14px", lineHeight: 1.4 }}>{p.subtitle[lang]}</p>
-                    <span className="btn-primary" style={{ fontSize: 13 }}>{tr.more}</span>
+                  <div className="product-card" style={{ height: "100%" }}>
+                    <div className="product-card-img-wrap" style={{ width: 150, height: 150 }}>
+                      <img src={p.image} alt={p.name[lang]} style={{ height: 118, objectFit: "contain" }} />
+                    </div>
+                    <h3 style={{ fontSize: 15, fontWeight: 800, color: "#0a1f5c", marginBottom: 8, letterSpacing: "0.3px" }}>{p.name[lang]}</h3>
+                    <p style={{ fontSize: 12, color: "#8896b3", lineHeight: 1.55, marginBottom: 18, flex: 1 }}>{p.subtitle[lang]}</p>
+                    <span className="btn-primary" style={{ fontSize: 13, padding: "9px 20px", boxShadow: "none", alignSelf: "center" }}>
+                      {tr.more}
+                    </span>
                   </div>
                 </Link>
               ))}
