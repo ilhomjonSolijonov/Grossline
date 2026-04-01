@@ -4,6 +4,7 @@
     "slug": "dubay-2019",
     "date": "18.02.2019",
     "image": "/images/20190213_143713_0.jpg",
+    "images": ["/images/20190213_143713_0.jpg", "/images/dsc_8313.jpg"],
     "title": { "ru": "Дубай-2019", "en": "Dubai-2019", "uz": "Dubay-2019" },
     "description": {
       "ru": "Тим-билдинг в Дубай 2019г. Сотрудники компании Grossline Pharm приняли участие в корпоративной поездке в Дубай, где прошли командообразующие мероприятия и тренинги.",
@@ -16,6 +17,7 @@
     "slug": "antaliya-2018",
     "date": "15.10.2018",
     "image": "/images/dsc_8313.jpg",
+    "images": ["/images/dsc_8313.jpg", "/images/vistav_0.jpg", "/images/ant.jpg"],
     "title": { "ru": "Анталия 2018", "en": "Antalya 2018", "uz": "Antaliya 2018" },
     "description": {
       "ru": "Корпоративный выезд сотрудников компании Grossline Pharm в Анталию в 2018 году.",
@@ -28,6 +30,7 @@
     "slug": "uchastie-na-vystavke-v-tadzhikistane-0",
     "date": "05.07.2018",
     "image": "/images/vistav_0.jpg",
+    "images": ["/images/vistav_0.jpg", "/images/1_0.jpg"],
     "title": {
       "ru": "Участие на выставке в Таджикистане",
       "en": "Exhibition in Tajikistan",
@@ -44,6 +47,7 @@
     "slug": "korporativnyy-otdyh-v-antalii-0",
     "date": "2018-01-01",
     "image": "/images/ant.jpg",
+    "images": ["/images/ant.jpg", "/images/rad1.jpg", "/images/konfv_1.jpg"],
     "title": {
       "ru": "Корпоративный отдых в Анталии",
       "en": "Corporate vacation in Antalya",
@@ -60,6 +64,7 @@
     "slug": "trening-na-prirode",
     "date": "2018-01-01",
     "image": "/images/1_0.jpg",
+    "images": ["/images/1_0.jpg", "/images/20190213_143713_0.jpg"],
     "title": {
       "ru": "Тренинг на природе",
       "en": "Nature training",
@@ -76,6 +81,7 @@
     "slug": "trening-2017",
     "date": "2017-01-01",
     "image": "/images/rad1.jpg",
+    "images": ["/images/rad1.jpg", "/images/dsc_8313.jpg"],
     "title": { "ru": "Тренинг 2017", "en": "Training 2017", "uz": "Trening 2017" },
     "description": {
       "ru": "Корпоративный тренинг для сотрудников компании в 2017 году.",
@@ -88,6 +94,7 @@
     "slug": "konferenciya-v-italii",
     "date": "2019-01-01",
     "image": "/images/konfv_1.jpg",
+    "images": ["/images/konfv_1.jpg", "/images/ant.jpg", "/images/vistav_0.jpg"],
     "title": {
       "ru": "Конференция в Италии",
       "en": "Conference in Italy",

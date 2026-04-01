@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import EventGalleryCarousel from "@/components/EventGalleryCarousel";
 import { t } from "@/lib/i18n";
 import { getEvents } from "@/lib/data";
 
@@ -97,14 +98,8 @@ export default async function EventDetailPage({ params }) {
                   </p>
                 </div>
 
-                {/* Gallery — show main image large */}
-                <div style={{ borderRadius: 8, overflow: "hidden", border: "1px solid #e8ecf0" }}>
-                  <img
-                    src={ev.image}
-                    alt={ev.title[lang]}
-                    style={{ width: "100%", display: "block", maxHeight: 400, objectFit: "cover" }}
-                  />
-                </div>
+                {/* Gallery — carousel with multiple images */}
+                <EventGalleryCarousel images={ev.images || [ev.image]} />
               </div>
 
               {/* Sidebar */}

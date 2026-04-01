@@ -66,7 +66,7 @@ export default async function HomePage({ params }) {
                 {lang === "en" && <>Medicines from<br />natural plants</>}
                 {lang === "uz" && <>Tabiiy o'simliklardan<br />dori vositalari</>}
               </h1>
-              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.75)", lineHeight: 1.7, marginBottom: 32, maxWidth: 440 }}>
+              <p style={{ fontSize: 16, color: "rgba(255, 255, 255)", lineHeight: 1.7, marginBottom: 32, maxWidth: 440 }}>
                 {lang === "ru" && "Качество и безопасность — основа каждого нашего препарата с 2015 года."}
                 {lang === "en" && "Quality and safety are the foundation of every medicine we make since 2015."}
                 {lang === "uz" && "Sifat va xavfsizlik — 2015 yildan beri har bir dori vositamizning asosi."}
