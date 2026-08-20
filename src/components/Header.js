@@ -30,9 +30,9 @@ export default function Header({ lang, active }) {
       <div style={{ background: "#1c2f4a" }}>
         <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 32px", gap: 16 }}>
           <div className="top-bar-phone" style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 12, color: "rgba(255,255,255,0.7)" }}>
-            <a href="tel:+998712000771" style={{ color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 5 }}>
+            <a href="tel:+998711771771" style={{ color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 5 }}>
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-              +998 71 200 07 71
+              +998 71 177 17 71
             </a>
             <a href="mailto:info@grossline.uz" style={{ color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 5 }}>
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>

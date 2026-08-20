@@ -53,8 +53,7 @@ const content = {
 const stats = [
   { num: "2015", label: { ru: "Год основания", en: "Year founded", uz: "Tashkil etilgan" } },
   { num: "210+", label: { ru: "Сотрудников", en: "Employees", uz: "Xodimlar" } },
-  { num: "5",    label: { ru: "Продуктов", en: "Products", uz: "Mahsulotlar" } },
-  { num: "4",    label: { ru: "Страны-партнёры", en: "Partner countries", uz: "Hamkor mamlakatlar" } },
+  { num: "15",   label: { ru: "Продуктов", en: "Products", uz: "Mahsulotlar" } },
 ];
 
 const values = [
@@ -79,9 +78,9 @@ export default async function AboutPage({ params }) {
 
         {/* Stats bar */}
         <section style={{ background: "#1c2f4a", borderBottom: "1px solid #243650" }}>
-          <div className="container grid-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+          <div className="container grid-stats" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
             {stats.map((s, i) => (
-              <div key={s.num} style={{ padding: "24px 20px", textAlign: "center", borderRight: i < 3 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
+              <div key={s.num} style={{ padding: "24px 20px", textAlign: "center", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
                 <div style={{ fontSize: "2rem", fontWeight: 700, color: "#fff", lineHeight: 1 }}>{s.num}</div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 5, textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>{s.label[lang]}</div>
               </div>

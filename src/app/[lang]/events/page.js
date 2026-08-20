@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { t } from "@/lib/i18n";
+import { t, pick } from "@/lib/i18n";
 import { getEvents } from "@/lib/data";
 
 export async function generateMetadata({ params }) {
@@ -38,15 +38,15 @@ export default async function EventsPage({ params }) {
                 <Link key={ev.id} href={`/${lang}/events/${ev.slug}`} style={{ textDecoration: "none", display: "flex" }}>
                   <div className="event-card" style={{ width: "100%" }}>
                     <div className="img-zoom-wrap" style={{ position: "relative" }}>
-                      <img src={ev.image} alt={ev.title[lang]} style={{ width: "100%", height: 210, objectFit: "cover" }} />
+                      <img src={ev.image} alt={pick(ev.title, lang)} style={{ width: "100%", height: 210, objectFit: "cover" }} />
                       <div style={{ position: "absolute", top: 14, left: 14, background: "#0d6efd", color: "#fff", borderRadius: 8, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>
                         {ev.date}
                       </div>
                     </div>
                     <div style={{ padding: "20px 22px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
-                      <h3 style={{ fontSize: 15, fontWeight: 700, color: "#0a1f5c", marginBottom: 10, lineHeight: 1.45 }}>{ev.title[lang]}</h3>
+                      <h3 style={{ fontSize: 15, fontWeight: 700, color: "#0a1f5c", marginBottom: 10, lineHeight: 1.45 }}>{pick(ev.title, lang)}</h3>
                       <p style={{ fontSize: 13, color: "#6b7280", lineHeight: 1.65, flex: 1, marginBottom: 18 }}>
-                        {ev.description[lang].slice(0, 110)}{ev.description[lang].length > 110 ? "…" : ""}
+                        {pick(ev.description, lang).slice(0, 110)}{pick(ev.description, lang).length > 110 ? "…" : ""}
                       </p>
                       <span style={{ fontSize: 13, color: "#0d6efd", fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
                         {tr.more}

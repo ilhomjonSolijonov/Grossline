@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { t } from "@/lib/i18n";
+import { t, pick } from "@/lib/i18n";
 import { getProducts } from "@/lib/data";
 
 export async function generateMetadata({ params }) {
@@ -45,10 +45,10 @@ export default async function AllProductsPage({ params }) {
                 <Link key={p.id} href={`/${lang}/${p.slug}`} style={{ textDecoration: "none" }}>
                   <div className="product-card" style={{ height: "100%" }}>
                     <div className="product-card-img-wrap">
-                      <img src={p.image} alt={p.name[lang]} style={{ height: 100, objectFit: "contain" }} />
+                      <img src={p.image} alt={pick(p.name, lang)} style={{ height: 100, objectFit: "contain" }} />
                     </div>
-                    <h3 style={{ fontSize: 14, fontWeight: 700, color: "#1c1c1e", marginBottom: 6 }}>{p.name[lang]}</h3>
-                    <p style={{ fontSize: 12, color: "#8e8e93", lineHeight: 1.55, marginBottom: 16, flex: 1 }}>{p.subtitle[lang]}</p>
+                    <h3 style={{ fontSize: 14, fontWeight: 700, color: "#1c1c1e", marginBottom: 6 }}>{pick(p.name, lang)}</h3>
+                    <p style={{ fontSize: 12, color: "#8e8e93", lineHeight: 1.55, marginBottom: 16, flex: 1 }}>{pick(p.subtitle, lang)}</p>
                     <span style={{ fontSize: 12, color: "#1a56db", fontWeight: 600 }}>{tr.more} →</span>
                   </div>
                 </Link>

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import EventGalleryCarousel from "@/components/EventGalleryCarousel";
-import { t } from "@/lib/i18n";
+import { t, pick } from "@/lib/i18n";
 import { getEvents } from "@/lib/data";
 
 export async function generateMetadata({ params }) {
@@ -12,11 +12,11 @@ export async function generateMetadata({ params }) {
   const ev = events.find((e) => e.slug === slug);
   if (!ev) return {};
   return {
-    title: `${ev.title[lang]} | GrossLINE Pharm`,
-    description: ev.description[lang],
+    title: `${pick(ev.title, lang)} | GrossLINE Pharm`,
+    description: pick(ev.description, lang),
     openGraph: {
-      title: `${ev.title[lang]} | GrossLINE Pharm`,
-      description: ev.description[lang],
+      title: `${pick(ev.title, lang)} | GrossLINE Pharm`,
+      description: pick(ev.description, lang),
       images: [ev.image],
     },
   };
@@ -41,7 +41,7 @@ export default async function EventDetailPage({ params }) {
         <div style={{ position: "relative", height: "min(420px, 55vw)", minHeight: 220, background: "#1c2f4a", overflow: "hidden" }}>
           <img
             src={ev.image}
-            alt={ev.title[lang]}
+            alt={pick(ev.title, lang)}
             style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.5 }}
           />
           <div style={{
@@ -59,7 +59,7 @@ export default async function EventDetailPage({ params }) {
                 fontSize: "clamp(1.4rem, 4vw, 2.2rem)",
                 fontWeight: 700, lineHeight: 1.3,
               }}>
-                {ev.title[lang]}
+                {pick(ev.title, lang)}
               </h1>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default async function EventDetailPage({ params }) {
                     fontSize: 16, lineHeight: 1.9, color: "#444",
                     margin: 0,
                   }}>
-                    {ev.description[lang]}
+                    {pick(ev.description, lang)}
                   </p>
                 </div>
 
@@ -151,9 +151,9 @@ export default async function EventDetailPage({ params }) {
                     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                       {related.map((r) => (
                         <Link key={r.id} href={`/${lang}/events/${r.slug}`} style={{ textDecoration: "none", display: "flex", gap: 12, alignItems: "center" }}>
-                          <img src={r.image} alt={r.title[lang]} style={{ width: 60, height: 44, objectFit: "cover", borderRadius: 6, flexShrink: 0 }} />
+                          <img src={r.image} alt={pick(r.title, lang)} style={{ width: 60, height: 44, objectFit: "cover", borderRadius: 6, flexShrink: 0 }} />
                           <div>
-                            <div style={{ fontSize: 13, fontWeight: 600, color: "#1c1c1e", lineHeight: 1.3 }}>{r.title[lang]}</div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: "#1c1c1e", lineHeight: 1.3 }}>{pick(r.title, lang)}</div>
                             <div style={{ fontSize: 11, color: "#8e8e93", marginTop: 2 }}>{r.date}</div>
                           </div>
                         </Link>

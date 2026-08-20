@@ -25,7 +25,7 @@ export default function ContactsClient({ lang }) {
 
   const contacts = [
     { icon: "📍", label: tr.address, value: "Республика Узбекистан, Ташкентская обл., Зангиатинский район, улица Рамадон дом 40", href: null },
-    { icon: "📞", label: tr.phone, value: "+998 71 200 07 71", href: "tel:+998712000771" },
+    { icon: "📞", label: tr.phone, value: "+998 71 177 17 71", href: "tel:+998711771771" },
     { icon: "📞", label: tr.phone, value: "+998 95 177 17 71", href: "tel:+998951771771" },
     { icon: "✉️", label: tr.email, value: "info@grossline.uz", href: "mailto:info@grossline.uz" },
   ];

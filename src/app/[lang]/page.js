@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { t } from "@/lib/i18n";
+import { t, pick } from "@/lib/i18n";
 import { getProducts, getEvents } from "@/lib/data";
 
 export async function generateMetadata({ params }) {
@@ -27,8 +27,7 @@ export async function generateMetadata({ params }) {
 const stats = [
   { num: "2015", label: { ru: "Год основания", en: "Founded", uz: "Tashkil etilgan" } },
   { num: "210+", label: { ru: "Сотрудников", en: "Employees", uz: "Xodimlar" } },
-  { num: "5",    label: { ru: "Продуктов", en: "Products", uz: "Mahsulotlar" } },
-  { num: "4+",   label: { ru: "Рынков сбыта", en: "Markets", uz: "Bozorlar" } },
+  { num: "15",   label: { ru: "Продуктов", en: "Products", uz: "Mahsulotlar" } },
 ];
 
 export default async function HomePage({ params }) {
@@ -81,9 +80,9 @@ export default async function HomePage({ params }) {
 
         {/* STATS */}
         <section style={{ background: "#1c2f4a", borderBottom: "1px solid #243650" }}>
-          <div className="container grid-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)" }}>
+          <div className="container grid-stats" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)" }}>
             {stats.map((s, i) => (
-              <div key={i} style={{ padding: "24px 20px", textAlign: "center", borderRight: i < 3 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
+              <div key={i} style={{ padding: "24px 20px", textAlign: "center", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
                 <div style={{ fontSize: "2rem", fontWeight: 700, color: "#fff", lineHeight: 1 }}>{s.num}</div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 5, textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>{s.label[lang]}</div>
               </div>
@@ -133,10 +132,10 @@ export default async function HomePage({ params }) {
                 <Link key={p.id} href={`/${lang}/${p.slug}`} style={{ textDecoration: "none" }}>
                   <div className="product-card">
                     <div className="product-card-img-wrap">
-                      <img src={p.image} alt={p.name[lang]} style={{ height: 90, objectFit: "contain" }} />
+                      <img src={p.image} alt={pick(p.name, lang)} style={{ height: 90, objectFit: "contain" }} />
                     </div>
-                    <h3 style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e", marginBottom: 5 }}>{p.name[lang]}</h3>
-                    <p style={{ fontSize: 11, color: "#8e8e93", lineHeight: 1.5, marginBottom: 14, flex: 1 }}>{p.subtitle[lang]}</p>
+                    <h3 style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e", marginBottom: 5 }}>{pick(p.name, lang)}</h3>
+                    <p style={{ fontSize: 11, color: "#8e8e93", lineHeight: 1.5, marginBottom: 14, flex: 1 }}>{pick(p.subtitle, lang)}</p>
                     <span style={{ fontSize: 12, color: "#1a56db", fontWeight: 600 }}>{tr.more} →</span>
                   </div>
                 </Link>
@@ -162,13 +161,13 @@ export default async function HomePage({ params }) {
                 <Link key={ev.id} href={`/${lang}/events/${ev.slug}`} style={{ textDecoration: "none", display: "flex" }}>
                   <div className="event-card" style={{ width: "100%" }}>
                     <div className="img-zoom-wrap">
-                      <img src={ev.image} alt={ev.title[lang]} style={{ width: "100%", height: 190, objectFit: "cover" }} />
+                      <img src={ev.image} alt={pick(ev.title, lang)} style={{ width: "100%", height: 190, objectFit: "cover" }} />
                     </div>
                     <div style={{ padding: "16px 18px 20px", flex: 1, display: "flex", flexDirection: "column" }}>
                       <span style={{ fontSize: 11, color: "#8e8e93", fontWeight: 600, marginBottom: 8 }}>{ev.date}</span>
-                      <h3 style={{ fontSize: 14, fontWeight: 700, color: "#1c1c1e", marginBottom: 8, lineHeight: 1.4 }}>{ev.title[lang]}</h3>
+                      <h3 style={{ fontSize: 14, fontWeight: 700, color: "#1c1c1e", marginBottom: 8, lineHeight: 1.4 }}>{pick(ev.title, lang)}</h3>
                       <p style={{ fontSize: 13, color: "#666", lineHeight: 1.6, flex: 1, marginBottom: 14 }}>
-                        {ev.description[lang].slice(0, 90)}{ev.description[lang].length > 90 ? "…" : ""}
+                        {pick(ev.description, lang).slice(0, 90)}{pick(ev.description, lang).length > 90 ? "…" : ""}
                       </p>
                       <span style={{ fontSize: 13, color: "#1a56db", fontWeight: 600 }}>{tr.more} →</span>
                     </div>
@@ -196,7 +195,7 @@ export default async function HomePage({ params }) {
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <Link href={`/${lang}/contacts`} className="btn-white">{tr.contacts}</Link>
-              <a href="tel:+998712000771" className="btn-ghost">+998 71 200 07 71</a>
+              <a href="tel:+998711771771" className="btn-ghost">+998 71 177 17 71</a>
             </div>
           </div>
         </section>

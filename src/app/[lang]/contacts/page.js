@@ -8,9 +8,9 @@ export async function generateMetadata({ params }) {
     uz: "Kontaktlar — GrossLINE Pharm",
   };
   const descs = {
-    ru: "Свяжитесь с GrossLINE Pharm. Адрес: Ташкентская обл., Зангиатинский район, ул. Рамадон 40. Тел: +998 71 200 07 71.",
-    en: "Contact GrossLINE Pharm. Address: Tashkent region, Zangiata district, Ramadon str. 40. Phone: +998 71 200 07 71.",
-    uz: "GrossLINE Pharm bilan bog'laning. Manzil: Toshkent viloyati, Zangiota tumani, Ramadon ko'chasi 40. Tel: +998 71 200 07 71.",
+    ru: "Свяжитесь с GrossLINE Pharm. Адрес: Ташкентская обл., Зангиатинский район, ул. Рамадон 40. Тел: +998 71 177 17 71.",
+    en: "Contact GrossLINE Pharm. Address: Tashkent region, Zangiata district, Ramadon str. 40. Phone: +998 71 177 17 71.",
+    uz: "GrossLINE Pharm bilan bog'laning. Manzil: Toshkent viloyati, Zangiota tumani, Ramadon ko'chasi 40. Tel: +998 71 177 17 71.",
   };
   return {
     title: titles[lang] || titles.ru,

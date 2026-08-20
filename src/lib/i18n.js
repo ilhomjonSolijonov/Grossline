@@ -92,3 +92,9 @@ export const t = {
     lang: "O'zbek",
   },
 };
+
+// Значение поля на нужном языке; если перевода нет — показываем русский вариант
+export function pick(field, lang) {
+  if (!field) return "";
+  return field[lang] || field.ru || field.en || field.uz || "";
+}

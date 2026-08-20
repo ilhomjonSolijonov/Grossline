@@ -1,13 +1,52 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const empty = { id: "", slug: "", date: "", image: "", title: { ru: "", en: "", uz: "" }, description: { ru: "", en: "", uz: "" } };
+const LANGS = ["ru", "en", "uz"];
+const LANG_FLAGS = { ru: "🇷🇺", en: "🇬🇧", uz: "🇺🇿" };
+const LANG_NAMES = { ru: "Русский", en: "English", uz: "O'zbekcha" };
+
+const empty = {
+  id: "",
+  slug: "",
+  date: "",
+  image: "",
+  images: [],
+  title: { ru: "", en: "", uz: "" },
+  description: { ru: "", en: "", uz: "" },
+};
+
+// На сайте дата выводится как есть, в формате ДД.ММ.ГГГГ,
+// а <input type="date"> работает только с ГГГГ-ММ-ДД.
+function toInputDate(stored) {
+  if (!stored) return "";
+  const dotted = stored.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+  if (dotted) return `${dotted[3]}-${dotted[2]}-${dotted[1]}`;
+  return /^\d{4}-\d{2}-\d{2}$/.test(stored) ? stored : "";
+}
+
+function toStoredDate(input) {
+  const iso = input.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return iso ? `${iso[3]}.${iso[2]}.${iso[1]}` : input;
+}
+
+function withDefaults(ev) {
+  const base = structuredClone(empty);
+  const src = structuredClone(ev || {});
+  return {
+    ...base,
+    ...src,
+    images: Array.isArray(src.images) && src.images.length ? src.images : (src.image ? [src.image] : []),
+    title: { ...base.title, ...(src.title || {}) },
+    description: { ...base.description, ...(src.description || {}) },
+  };
+}
 
 const inp = {
   width: "100%", padding: "9px 12px",
   borderWidth: "1.5px", borderStyle: "solid", borderColor: "#e5e7eb", borderRadius: 8,
   fontSize: 13, outline: "none", boxSizing: "border-box",
   background: "#fafafa", transition: "border-color 0.2s",
+  fontFamily: "inherit",
 };
 const focusInp = { borderColor: "#059669", background: "#fff" };
 
@@ -16,9 +55,18 @@ function Input({ value, onChange, placeholder, type, style }) {
   return <input type={type || "text"} value={value} onChange={onChange} placeholder={placeholder} style={{ ...inp, ...(focused ? focusInp : {}), ...style }} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />;
 }
 
-function Textarea({ value, onChange, placeholder }) {
+function Textarea({ value, onChange, placeholder, rows = 3 }) {
   const [focused, setFocused] = useState(false);
-  return <textarea value={value} onChange={onChange} placeholder={placeholder} style={{ ...inp, height: 80, resize: "vertical", ...(focused ? focusInp : {}) }} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />;
+  return <textarea rows={rows} value={value} onChange={onChange} placeholder={placeholder} style={{ ...inp, resize: "vertical", lineHeight: 1.5, ...(focused ? focusInp : {}) }} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />;
+}
+
+function Label({ children, hint }) {
+  return (
+    <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#666", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.5px" }}>
+      {children}
+      {hint && <span style={{ textTransform: "none", letterSpacing: 0, color: "#aaa", fontWeight: 500, marginLeft: 6 }}>{hint}</span>}
+    </label>
+  );
 }
 
 const btn = (bg, text = "#fff") => ({
@@ -31,9 +79,13 @@ export default function AdminEvents() {
   const [form, setForm] = useState(empty);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const [tab, setTab] = useState("ru");
 
-  const load = async () => setItems(await (await fetch("/api/admin/events")).json());
+  const load = async () => {
+    const res = await fetch("/api/admin/events");
+    if (res.ok) setItems(await res.json());
+  };
   useEffect(() => { load(); }, []);
 
   const set = (path, val) => setForm(prev => {
@@ -43,32 +95,48 @@ export default function AdminEvents() {
   });
 
   const save = async () => {
+    setError("");
+    if (!form.slug.trim()) return setError("Укажите ссылку (slug) — она используется в адресе страницы.");
+    if (!form.title.ru.trim()) return setError("Укажите название события хотя бы на русском языке.");
+
     setSaving(true);
-    const body = editing ? form : { ...form, id: form.slug || String(Date.now()) };
-    await fetch("/api/admin/events", { method: editing ? "PUT" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-    setForm(empty); setEditing(false); setSaving(false); load();
+    const payload = withDefaults(form);
+    payload.images = payload.images.map(s => s.trim()).filter(Boolean);
+    // Главное изображение всегда первое в галерее
+    if (!payload.image && payload.images.length) payload.image = payload.images[0];
+    if (payload.image && !payload.images.includes(payload.image)) payload.images.unshift(payload.image);
+
+    const body = editing ? payload : { ...payload, id: payload.slug.trim() || String(Date.now()) };
+    const res = await fetch("/api/admin/events", {
+      method: editing ? "PUT" : "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    setSaving(false);
+    if (!res.ok) return setError("Не удалось сохранить. Попробуйте ещё раз.");
+    setForm(empty); setEditing(false); setTab("ru"); load();
   };
 
   const del = async (id) => {
-    if (!confirm("Delete this event?")) return;
+    if (!confirm("Удалить это событие?")) return;
     await fetch("/api/admin/events", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    if (form.id === id) { setForm(empty); setEditing(false); }
     load();
   };
 
-  const edit = (ev) => { setForm(structuredClone(ev)); setEditing(true); window.scrollTo({ top: 0, behavior: "smooth" }); };
-  const cancel = () => { setForm(empty); setEditing(false); };
+  const edit = (ev) => { setForm(withDefaults(ev)); setEditing(true); setError(""); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const cancel = () => { setForm(empty); setEditing(false); setError(""); };
 
-  const langs = ["ru", "en", "uz"];
-  const langFlags = { ru: "🇷🇺", en: "🇬🇧", uz: "🇺🇿" };
+  const galleryText = (form.images || []).join("\n");
 
   return (
     <div>
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>Events</h1>
-        <p style={{ margin: "4px 0 0", color: "#888", fontSize: 13 }}>{items.length} events total</p>
+        <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>События</h1>
+        <p style={{ margin: "4px 0 0", color: "#888", fontSize: 13 }}>Всего событий: {items.length}</p>
       </div>
 
-      {/* Form card */}
+      {/* Форма */}
       <div style={{ background: "#fff", borderRadius: 14, padding: 24, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", marginBottom: 28 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20, paddingBottom: 16, borderBottom: "1px solid #f0f0f0" }}>
           <div style={{ width: 32, height: 32, borderRadius: 8, background: editing ? "#fff3e0" : "#e6f9f0", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -77,100 +145,132 @@ export default function AdminEvents() {
               : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             }
           </div>
-          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>{editing ? "Edit Event" : "Add New Event"}</h2>
+          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>{editing ? "Редактирование события" : "Новое событие"}</h2>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 16 }}>
           <div>
-            <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#666", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.5px" }}>Slug</label>
-            <Input value={form.slug} onChange={e => set("slug", e.target.value)} placeholder="e.g. event-2024" />
+            <Label hint="адрес страницы">Ссылка (slug)</Label>
+            <Input value={form.slug} onChange={e => set("slug", e.target.value)} placeholder="например: dubay-2019" />
           </div>
           <div>
-            <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#666", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.5px" }}>Date</label>
-            <Input type="date" value={form.date} onChange={e => set("date", e.target.value)} />
+            <Label>Дата</Label>
+            <Input type="date" value={toInputDate(form.date)} onChange={e => set("date", toStoredDate(e.target.value))} />
           </div>
           <div>
-            <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#666", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.5px" }}>Image URL</label>
-            <Input value={form.image} onChange={e => set("image", e.target.value)} placeholder="https://..." />
+            <Label hint="файл из папки public">Главное изображение</Label>
+            <Input value={form.image} onChange={e => set("image", e.target.value)} placeholder="/images/dsc_8313.jpg" />
           </div>
         </div>
 
         {form.image && (
           <div style={{ marginBottom: 16, padding: 12, background: "#f0fdf8", borderRadius: 10, display: "flex", alignItems: "center", gap: 12 }}>
             <img src={form.image} alt="" style={{ width: 80, height: 52, objectFit: "cover", borderRadius: 8 }} />
-            <span style={{ fontSize: 12, color: "#888" }}>Image preview</span>
+            <span style={{ fontSize: 12, color: "#888" }}>Предпросмотр главного изображения</span>
           </div>
         )}
 
-        {/* Language tabs */}
+        {/* Галерея */}
+        <div style={{ marginBottom: 16 }}>
+          <Label hint="по одному пути к файлу в строке">Галерея</Label>
+          <Textarea
+            rows={4}
+            value={galleryText}
+            onChange={e => set("images", e.target.value.split("\n"))}
+            placeholder={"/images/dsc_8313.jpg\n/images/ant.jpg"}
+          />
+          {form.images?.filter(Boolean).length > 0 && (
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 10 }}>
+              {form.images.filter(Boolean).map((src, i) => (
+                <img key={`${src}-${i}`} src={src} alt="" style={{ width: 72, height: 48, objectFit: "cover", borderRadius: 6, border: "1px solid #eee" }} />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Языковые вкладки */}
         <div style={{ display: "flex", gap: 4, marginBottom: 16, borderBottom: "1px solid #f0f0f0" }}>
-          {langs.map(l => (
+          {LANGS.map(l => (
             <button key={l} onClick={() => setTab(l)} style={{ padding: "8px 16px", border: "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: tab === l ? 700 : 500, color: tab === l ? "#059669" : "#888", borderBottom: tab === l ? "2px solid #059669" : "2px solid transparent", marginBottom: -1 }}>
-              {langFlags[l]} {l.toUpperCase()}
+              {LANG_FLAGS[l]} {LANG_NAMES[l]}
             </button>
           ))}
         </div>
 
-        {langs.map(l => (
+        {LANGS.map(l => (
           <div key={l} style={{ display: tab === l ? "flex" : "none", flexDirection: "column", gap: 12 }}>
             <div>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#666", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.5px" }}>Title ({l.toUpperCase()})</label>
-              <Input value={form.title[l]} onChange={e => set(`title.${l}`, e.target.value)} placeholder={`Event title in ${l}`} />
+              <Label>Название события</Label>
+              <Input value={form.title[l]} onChange={e => set(`title.${l}`, e.target.value)} placeholder="Например: Дубай-2019" />
             </div>
             <div>
-              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#666", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.5px" }}>Description ({l.toUpperCase()})</label>
-              <Textarea value={form.description[l]} onChange={e => set(`description.${l}`, e.target.value)} placeholder={`Description in ${l}`} />
+              <Label>Описание</Label>
+              <Textarea rows={4} value={form.description[l]} onChange={e => set(`description.${l}`, e.target.value)} placeholder="Короткий рассказ о событии…" />
             </div>
           </div>
         ))}
 
+        {error && (
+          <div style={{ marginTop: 16, background: "#fff0f0", border: "1px solid #fcc", borderRadius: 8, padding: "10px 14px", fontSize: 13, color: "#c00" }}>
+            {error}
+          </div>
+        )}
+
         <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
           <button style={{ ...btn(editing ? "#f59e0b" : "#059669"), padding: "10px 22px", boxShadow: `0 4px 12px ${editing ? "rgba(245,158,11,0.3)" : "rgba(5,150,105,0.3)"}` }} onClick={save} disabled={saving}>
-            {saving ? "Saving…" : editing ? "Update Event" : "Add Event"}
+            {saving ? "Сохранение…" : editing ? "Сохранить изменения" : "Добавить событие"}
           </button>
-          {editing && <button style={btn("#f1f3f5", "#555")} onClick={cancel}>Cancel</button>}
+          {editing && <button style={btn("#f1f3f5", "#555")} onClick={cancel}>Отмена</button>}
         </div>
       </div>
 
-      {/* List */}
+      {/* Список */}
       <div style={{ background: "#fff", borderRadius: 14, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", overflow: "hidden" }}>
         <div style={{ padding: "16px 24px", borderBottom: "1px solid #f0f0f0" }}>
-          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>All Events</h2>
+          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>Все события</h2>
         </div>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr style={{ background: "#fafafa" }}>
-              {["Event", "Date", "Title (EN)", "Actions"].map(h => (
-                <th key={h} style={{ textAlign: "left", padding: "10px 20px", fontSize: 11, fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px" }}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {items.map(ev => (
-              <tr key={ev.id} style={{ borderBottom: "1px solid #f5f5f5" }}>
-                <td style={{ padding: "12px 20px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <img src={ev.image} alt="" style={{ width: 60, height: 40, objectFit: "cover", borderRadius: 8 }} />
-                    <div style={{ fontWeight: 700, fontSize: 13, color: "#0d1b3e" }}>{ev.title?.ru}</div>
-                  </div>
-                </td>
-                <td style={{ padding: "12px 20px" }}>
-                  <span style={{ background: "#f0fdf8", color: "#059669", fontSize: 11, fontWeight: 600, padding: "3px 8px", borderRadius: 5 }}>{ev.date}</span>
-                </td>
-                <td style={{ padding: "12px 20px", fontSize: 13, color: "#666" }}>{ev.title?.en}</td>
-                <td style={{ padding: "12px 20px" }}>
-                  <div style={{ display: "flex", gap: 8 }}>
-                    <button style={{ ...btn("#fff8e1", "#d97706"), padding: "6px 12px" }} onClick={() => edit(ev)}>Edit</button>
-                    <button style={{ ...btn("#fff0f0", "#dc2626"), padding: "6px 12px" }} onClick={() => del(ev.id)}>Delete</button>
-                  </div>
-                </td>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ background: "#fafafa" }}>
+                {["Событие", "Дата", "Фото", "Действия"].map(h => (
+                  <th key={h} style={{ textAlign: "left", padding: "10px 20px", fontSize: 11, fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>{h}</th>
+                ))}
               </tr>
-            ))}
-            {items.length === 0 && (
-              <tr><td colSpan={4} style={{ padding: "40px", textAlign: "center", color: "#bbb", fontSize: 14 }}>No events yet. Add one above.</td></tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {items.map(ev => (
+                <tr key={ev.id} style={{ borderBottom: "1px solid #f5f5f5" }}>
+                  <td style={{ padding: "12px 20px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <img src={ev.image} alt="" style={{ width: 60, height: 40, objectFit: "cover", borderRadius: 8 }} />
+                      <div>
+                        <div style={{ fontWeight: 700, fontSize: 13, color: "#0d1b3e" }}>{ev.title?.ru}</div>
+                        <div style={{ fontSize: 11, color: "#bbb", marginTop: 2 }}>{ev.title?.en}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style={{ padding: "12px 20px" }}>
+                    <span style={{ background: "#f0fdf8", color: "#059669", fontSize: 11, fontWeight: 600, padding: "3px 8px", borderRadius: 5, whiteSpace: "nowrap" }}>{ev.date}</span>
+                  </td>
+                  <td style={{ padding: "12px 20px", fontSize: 13, color: "#666", whiteSpace: "nowrap" }}>
+                    {(ev.images?.length || (ev.image ? 1 : 0))} шт.
+                  </td>
+                  <td style={{ padding: "12px 20px" }}>
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <a href={`/ru/events/${ev.slug}`} target="_blank" rel="noreferrer" style={{ ...btn("#f0fdf8", "#059669"), padding: "6px 12px", textDecoration: "none" }}>Открыть</a>
+                      <button style={{ ...btn("#fff8e1", "#d97706"), padding: "6px 12px" }} onClick={() => edit(ev)}>Изменить</button>
+                      <button style={{ ...btn("#fff0f0", "#dc2626"), padding: "6px 12px" }} onClick={() => del(ev.id)}>Удалить</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              {items.length === 0 && (
+                <tr><td colSpan={4} style={{ padding: "40px", textAlign: "center", color: "#bbb", fontSize: 14 }}>Событий пока нет. Добавьте первое в форме выше.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -61,7 +61,7 @@ export default function LoginClient() {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
               </svg>
             </div>
-            <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>Grossline Admin</h1>
+            <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>Grossline Pharm</h1>
             <p style={{ margin: "6px 0 0", color: "#888", fontSize: 14 }}>Войдите в панель управления</p>
           </div>
 
@@ -154,9 +154,6 @@ export default function LoginClient() {
             </button>
           </form>
 
-          <p style={{ textAlign: "center", marginTop: 20, fontSize: 12, color: "#ccc" }}>
-            admin / grossline2024
-          </p>
         </div>
       </div>
     </div>
