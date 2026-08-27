@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useAdminLang } from "../AdminLangContext";
 
 const LANGS = ["ru", "en", "uz"];
 const LANG_FLAGS = { ru: "🇷🇺", en: "🇬🇧", uz: "🇺🇿" };
@@ -75,6 +76,9 @@ const btn = (bg, text = "#fff") => ({
 });
 
 export default function AdminEvents() {
+  const { tr } = useAdminLang();
+  const E = tr.events;
+
   const [items, setItems] = useState([]);
   const [form, setForm] = useState(empty);
   const [editing, setEditing] = useState(false);
@@ -96,8 +100,8 @@ export default function AdminEvents() {
 
   const save = async () => {
     setError("");
-    if (!form.slug.trim()) return setError("Укажите ссылку (slug) — она используется в адресе страницы.");
-    if (!form.title.ru.trim()) return setError("Укажите название события хотя бы на русском языке.");
+    if (!form.slug.trim()) return setError(E.errSlug);
+    if (!form.title.ru.trim()) return setError(E.errTitle);
 
     setSaving(true);
     const payload = withDefaults(form);
@@ -113,12 +117,12 @@ export default function AdminEvents() {
       body: JSON.stringify(body),
     });
     setSaving(false);
-    if (!res.ok) return setError("Не удалось сохранить. Попробуйте ещё раз.");
+    if (!res.ok) return setError(E.errSave);
     setForm(empty); setEditing(false); setTab("ru"); load();
   };
 
   const del = async (id) => {
-    if (!confirm("Удалить это событие?")) return;
+    if (!confirm(E.confirmDelete)) return;
     await fetch("/api/admin/events", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
     if (form.id === id) { setForm(empty); setEditing(false); }
     load();
@@ -132,8 +136,8 @@ export default function AdminEvents() {
   return (
     <div>
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>События</h1>
-        <p style={{ margin: "4px 0 0", color: "#888", fontSize: 13 }}>Всего событий: {items.length}</p>
+        <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>{E.title}</h1>
+        <p style={{ margin: "4px 0 0", color: "#888", fontSize: 13 }}>{E.total(items.length)}</p>
       </div>
 
       {/* Форма */}
@@ -145,39 +149,39 @@ export default function AdminEvents() {
               : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             }
           </div>
-          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>{editing ? "Редактирование события" : "Новое событие"}</h2>
+          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>{editing ? E.formEdit : E.formNew}</h2>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 16 }}>
           <div>
-            <Label hint="адрес страницы">Ссылка (slug)</Label>
-            <Input value={form.slug} onChange={e => set("slug", e.target.value)} placeholder="например: dubay-2019" />
+            <Label hint={E.slugHint}>{E.slug}</Label>
+            <Input value={form.slug} onChange={e => set("slug", e.target.value)} placeholder={E.slugPlaceholder} />
           </div>
           <div>
-            <Label>Дата</Label>
+            <Label>{E.date}</Label>
             <Input type="date" value={toInputDate(form.date)} onChange={e => set("date", toStoredDate(e.target.value))} />
           </div>
           <div>
-            <Label hint="файл из папки public">Главное изображение</Label>
-            <Input value={form.image} onChange={e => set("image", e.target.value)} placeholder="/images/dsc_8313.jpg" />
+            <Label hint={E.imageHint}>{E.image}</Label>
+            <Input value={form.image} onChange={e => set("image", e.target.value)} placeholder={E.imagePlaceholder} />
           </div>
         </div>
 
         {form.image && (
           <div style={{ marginBottom: 16, padding: 12, background: "#f0fdf8", borderRadius: 10, display: "flex", alignItems: "center", gap: 12 }}>
             <img src={form.image} alt="" style={{ width: 80, height: 52, objectFit: "cover", borderRadius: 8 }} />
-            <span style={{ fontSize: 12, color: "#888" }}>Предпросмотр главного изображения</span>
+            <span style={{ fontSize: 12, color: "#888" }}>{E.imagePreview}</span>
           </div>
         )}
 
         {/* Галерея */}
         <div style={{ marginBottom: 16 }}>
-          <Label hint="по одному пути к файлу в строке">Галерея</Label>
+          <Label hint={E.galleryHint}>{E.gallery}</Label>
           <Textarea
             rows={4}
             value={galleryText}
             onChange={e => set("images", e.target.value.split("\n"))}
-            placeholder={"/images/dsc_8313.jpg\n/images/ant.jpg"}
+            placeholder={E.galleryPh}
           />
           {form.images?.filter(Boolean).length > 0 && (
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 10 }}>
@@ -188,7 +192,7 @@ export default function AdminEvents() {
           )}
         </div>
 
-        {/* Языковые вкладки */}
+        {/* Языковые вкладки контента (RU/EN/UZ события — не путать с языком интерфейса) */}
         <div style={{ display: "flex", gap: 4, marginBottom: 16, borderBottom: "1px solid #f0f0f0" }}>
           {LANGS.map(l => (
             <button key={l} onClick={() => setTab(l)} style={{ padding: "8px 16px", border: "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: tab === l ? 700 : 500, color: tab === l ? "#059669" : "#888", borderBottom: tab === l ? "2px solid #059669" : "2px solid transparent", marginBottom: -1 }}>
@@ -200,12 +204,12 @@ export default function AdminEvents() {
         {LANGS.map(l => (
           <div key={l} style={{ display: tab === l ? "flex" : "none", flexDirection: "column", gap: 12 }}>
             <div>
-              <Label>Название события</Label>
-              <Input value={form.title[l]} onChange={e => set(`title.${l}`, e.target.value)} placeholder="Например: Дубай-2019" />
+              <Label>{E.fieldTitle}</Label>
+              <Input value={form.title[l]} onChange={e => set(`title.${l}`, e.target.value)} placeholder={E.fieldTitlePh} />
             </div>
             <div>
-              <Label>Описание</Label>
-              <Textarea rows={4} value={form.description[l]} onChange={e => set(`description.${l}`, e.target.value)} placeholder="Короткий рассказ о событии…" />
+              <Label>{E.fieldDescription}</Label>
+              <Textarea rows={4} value={form.description[l]} onChange={e => set(`description.${l}`, e.target.value)} placeholder={E.fieldDescriptionPh} />
             </div>
           </div>
         ))}
@@ -218,22 +222,22 @@ export default function AdminEvents() {
 
         <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
           <button style={{ ...btn(editing ? "#f59e0b" : "#059669"), padding: "10px 22px", boxShadow: `0 4px 12px ${editing ? "rgba(245,158,11,0.3)" : "rgba(5,150,105,0.3)"}` }} onClick={save} disabled={saving}>
-            {saving ? "Сохранение…" : editing ? "Сохранить изменения" : "Добавить событие"}
+            {saving ? E.saving : editing ? E.saveEdit : E.saveNew}
           </button>
-          {editing && <button style={btn("#f1f3f5", "#555")} onClick={cancel}>Отмена</button>}
+          {editing && <button style={btn("#f1f3f5", "#555")} onClick={cancel}>{E.cancel}</button>}
         </div>
       </div>
 
       {/* Список */}
       <div style={{ background: "#fff", borderRadius: 14, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", overflow: "hidden" }}>
         <div style={{ padding: "16px 24px", borderBottom: "1px solid #f0f0f0" }}>
-          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>Все события</h2>
+          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>{E.listTitle}</h2>
         </div>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ background: "#fafafa" }}>
-                {["Событие", "Дата", "Фото", "Действия"].map(h => (
+                {[E.colEvent, E.colDate, E.colPhotos, E.colActions].map(h => (
                   <th key={h} style={{ textAlign: "left", padding: "10px 20px", fontSize: 11, fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>{h}</th>
                 ))}
               </tr>
@@ -254,19 +258,19 @@ export default function AdminEvents() {
                     <span style={{ background: "#f0fdf8", color: "#059669", fontSize: 11, fontWeight: 600, padding: "3px 8px", borderRadius: 5, whiteSpace: "nowrap" }}>{ev.date}</span>
                   </td>
                   <td style={{ padding: "12px 20px", fontSize: 13, color: "#666", whiteSpace: "nowrap" }}>
-                    {(ev.images?.length || (ev.image ? 1 : 0))} шт.
+                    {E.photosCount(ev.images?.length || (ev.image ? 1 : 0))}
                   </td>
                   <td style={{ padding: "12px 20px" }}>
                     <div style={{ display: "flex", gap: 8 }}>
-                      <a href={`/ru/events/${ev.slug}`} target="_blank" rel="noreferrer" style={{ ...btn("#f0fdf8", "#059669"), padding: "6px 12px", textDecoration: "none" }}>Открыть</a>
-                      <button style={{ ...btn("#fff8e1", "#d97706"), padding: "6px 12px" }} onClick={() => edit(ev)}>Изменить</button>
-                      <button style={{ ...btn("#fff0f0", "#dc2626"), padding: "6px 12px" }} onClick={() => del(ev.id)}>Удалить</button>
+                      <a href={`/ru/events/${ev.slug}`} target="_blank" rel="noreferrer" style={{ ...btn("#f0fdf8", "#059669"), padding: "6px 12px", textDecoration: "none" }}>{E.open}</a>
+                      <button style={{ ...btn("#fff8e1", "#d97706"), padding: "6px 12px" }} onClick={() => edit(ev)}>{E.edit}</button>
+                      <button style={{ ...btn("#fff0f0", "#dc2626"), padding: "6px 12px" }} onClick={() => del(ev.id)}>{E.delete}</button>
                     </div>
                   </td>
                 </tr>
               ))}
               {items.length === 0 && (
-                <tr><td colSpan={4} style={{ padding: "40px", textAlign: "center", color: "#bbb", fontSize: 14 }}>Событий пока нет. Добавьте первое в форме выше.</td></tr>
+                <tr><td colSpan={4} style={{ padding: "40px", textAlign: "center", color: "#bbb", fontSize: 14 }}>{E.empty}</td></tr>
               )}
             </tbody>
           </table>

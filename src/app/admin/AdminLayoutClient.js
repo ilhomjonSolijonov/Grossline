@@ -1,22 +1,23 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAdminLang, AdminLangSwitcher } from "./AdminLangContext";
 
-const navItems = [
+const NAV = [
   {
     href: "/admin",
-    label: "Панель управления",
+    key: "navDashboard",
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>,
     exact: true,
   },
   {
     href: "/admin/products",
-    label: "Продукция",
+    key: "navProducts",
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
   },
   {
     href: "/admin/events",
-    label: "События",
+    key: "navEvents",
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
   },
 ];
@@ -24,9 +25,8 @@ const navItems = [
 export default function AdminLayoutClient({ children }) {
   const pathname = usePathname();
   const router = useRouter();
-
-  // Don't render sidebar on login page
-  if (pathname === "/admin/login") return <>{children}</>;
+  const { tr } = useAdminLang();
+  const L = tr.layout;
 
   async function handleLogout() {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -37,6 +37,11 @@ export default function AdminLayoutClient({ children }) {
   function isActive(item) {
     return item.exact ? pathname === item.href : pathname.startsWith(item.href);
   }
+
+  // Don't render sidebar on login page (but keep the lang provider above active)
+  if (pathname === "/admin/login") return <>{children}</>;
+
+  const navItems = NAV.map(item => ({ ...item, label: L[item.key] }));
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#f0f2f8", fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
@@ -61,8 +66,8 @@ export default function AdminLayoutClient({ children }) {
               </svg>
             </div>
             <div>
-              <div style={{ color: "#fff", fontWeight: 800, fontSize: 15, lineHeight: 1.2 }}>Grossline</div>
-              <div style={{ color: "#7a9fd4", fontSize: 11, fontWeight: 500 }}>Админ-панель</div>
+              <div style={{ color: "#fff", fontWeight: 800, fontSize: 15, lineHeight: 1.2 }}>{L.brand}</div>
+              <div style={{ color: "#7a9fd4", fontSize: 11, fontWeight: 500 }}>{L.brandSub}</div>
             </div>
           </div>
         </div>
@@ -70,7 +75,7 @@ export default function AdminLayoutClient({ children }) {
         {/* Nav */}
         <nav style={{ flex: 1, padding: "16px 12px" }}>
           <div style={{ fontSize: 10, fontWeight: 700, color: "#4a6a9a", textTransform: "uppercase", letterSpacing: "1px", padding: "0 8px 8px" }}>
-            Меню
+            {L.menu}
           </div>
           {navItems.map(item => {
             const active = isActive(item);
@@ -99,6 +104,9 @@ export default function AdminLayoutClient({ children }) {
 
         {/* Bottom actions */}
         <div style={{ padding: "12px", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+          <div style={{ padding: "4px 4px 10px" }}>
+            <AdminLangSwitcher />
+          </div>
           <a
             href="/ru"
             target="_blank"
@@ -109,7 +117,7 @@ export default function AdminLayoutClient({ children }) {
             }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Открыть сайт
+            {L.viewSite}
           </a>
           <button
             onClick={handleLogout}
@@ -121,7 +129,7 @@ export default function AdminLayoutClient({ children }) {
             }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Выйти
+            {L.logout}
           </button>
         </div>
       </aside>
@@ -136,7 +144,7 @@ export default function AdminLayoutClient({ children }) {
           justifyContent: "space-between",
         }}>
           <div style={{ fontSize: 14, color: "#888" }}>
-            {navItems.find(i => isActive(i))?.label || "Админ"}
+            {navItems.find(i => isActive(i))?.label || L.fallbackTitle}
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{
@@ -146,7 +154,7 @@ export default function AdminLayoutClient({ children }) {
               color: "#fff", fontWeight: 700, fontSize: 14,
             }}>A</div>
             <div style={{ fontSize: 13 }}>
-              <div style={{ fontWeight: 700, color: "#222" }}>Администратор</div>
+              <div style={{ fontWeight: 700, color: "#222" }}>{L.adminName}</div>
               <div style={{ color: "#999", fontSize: 11 }}>admin@grossline.uz</div>
             </div>
           </div>

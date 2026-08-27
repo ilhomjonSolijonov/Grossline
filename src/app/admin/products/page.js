@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useAdminLang } from "../AdminLangContext";
 
 const LANGS = ["ru", "en", "uz"];
 const LANG_FLAGS = { ru: "🇷🇺", en: "🇬🇧", uz: "🇺🇿" };
@@ -21,16 +22,20 @@ const empty = {
   storage: ml(),
 };
 
-// Поля описания препарата (состав редактируется отдельно — списком)
-const TEXT_FIELDS = [
-  { key: "name", label: "Название", multiline: false, placeholder: "ВЕРСТАНОРМ" },
-  { key: "subtitle", label: "Краткое описание", multiline: false, placeholder: "Гепатопротекторный растительный сироп, 150 мл" },
-  { key: "action", label: "Действие", multiline: true, placeholder: "Как действует препарат…" },
-  { key: "indications", label: "Показания", multiline: true, placeholder: "При каких состояниях применяется…" },
-  { key: "contraindications", label: "Противопоказания", multiline: true, placeholder: "Повышенная чувствительность к компонентам." },
-  { key: "dosing", label: "Способ применения и дозы", multiline: true, placeholder: "Дети 1–12 лет: 1–2 ч. ложки в день…" },
-  { key: "storage", label: "Хранение", multiline: true, placeholder: "2–25°C, срок годности 2 года." },
-];
+// Поля описания препарата (состав редактируется отдельно — списком).
+// Подписи и подсказки берутся из словаря админ-панели (P), чтобы форма
+// переключалась на выбранный язык интерфейса.
+function getTextFields(P) {
+  return [
+    { key: "name", label: P.fieldName, multiline: false, placeholder: P.fieldNamePh },
+    { key: "subtitle", label: P.fieldSubtitle, multiline: false, placeholder: P.fieldSubtitlePh },
+    { key: "action", label: P.fieldAction, multiline: true, placeholder: P.fieldActionPh },
+    { key: "indications", label: P.fieldIndications, multiline: true, placeholder: P.fieldIndicationsPh },
+    { key: "contraindications", label: P.fieldContraindications, multiline: true, placeholder: P.fieldContraindicationsPh },
+    { key: "dosing", label: P.fieldDosing, multiline: true, placeholder: P.fieldDosingPh },
+    { key: "storage", label: P.fieldStorage, multiline: true, placeholder: P.fieldStoragePh },
+  ];
+}
 
 function withDefaults(p) {
   const base = structuredClone(empty);
@@ -78,6 +83,10 @@ const btn = (bg, text = "#fff") => ({
 });
 
 export default function AdminProducts() {
+  const { tr } = useAdminLang();
+  const P = tr.products;
+  const TEXT_FIELDS = getTextFields(P);
+
   const [items, setItems] = useState([]);
   const [form, setForm] = useState(empty);
   const [editing, setEditing] = useState(false);
@@ -99,8 +108,8 @@ export default function AdminProducts() {
 
   const save = async () => {
     setError("");
-    if (!form.slug.trim()) return setError("Укажите ссылку (slug) — она используется в адресе страницы.");
-    if (!form.name.ru.trim()) return setError("Укажите название препарата хотя бы на русском языке.");
+    if (!form.slug.trim()) return setError(P.errSlug);
+    if (!form.name.ru.trim()) return setError(P.errName);
 
     setSaving(true);
     const payload = withDefaults(form);
@@ -115,12 +124,12 @@ export default function AdminProducts() {
       body: JSON.stringify(body),
     });
     setSaving(false);
-    if (!res.ok) return setError("Не удалось сохранить. Попробуйте ещё раз.");
+    if (!res.ok) return setError(P.errSave);
     setForm(empty); setEditing(false); setTab("ru"); load();
   };
 
   const del = async (id) => {
-    if (!confirm("Удалить этот препарат?")) return;
+    if (!confirm(P.confirmDelete)) return;
     await fetch("/api/admin/products", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
     if (form.id === id) { setForm(empty); setEditing(false); }
     load();
@@ -132,8 +141,8 @@ export default function AdminProducts() {
   return (
     <div>
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>Продукция</h1>
-        <p style={{ margin: "4px 0 0", color: "#888", fontSize: 13 }}>Всего препаратов: {items.length}</p>
+        <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>{P.title}</h1>
+        <p style={{ margin: "4px 0 0", color: "#888", fontSize: 13 }}>{P.total(items.length)}</p>
       </div>
 
       {/* Форма */}
@@ -145,29 +154,29 @@ export default function AdminProducts() {
               : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0066cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             }
           </div>
-          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>{editing ? "Редактирование препарата" : "Новый препарат"}</h2>
+          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>{editing ? P.formEdit : P.formNew}</h2>
         </div>
 
         {/* Ссылка и изображение */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
           <div>
-            <Label hint="адрес страницы">Ссылка (slug)</Label>
-            <Input value={form.slug} onChange={e => set("slug", e.target.value)} placeholder="например: verstanorm" />
+            <Label hint={P.slugHint}>{P.slug}</Label>
+            <Input value={form.slug} onChange={e => set("slug", e.target.value)} placeholder={P.slugPlaceholder} />
           </div>
           <div>
-            <Label hint="файл из папки public">Изображение</Label>
-            <Input value={form.image} onChange={e => set("image", e.target.value)} placeholder="/images/3_4.png" />
+            <Label hint={P.imageHint}>{P.image}</Label>
+            <Input value={form.image} onChange={e => set("image", e.target.value)} placeholder={P.imagePlaceholder} />
           </div>
         </div>
 
         {form.image && (
           <div style={{ marginBottom: 16, padding: 12, background: "#f8f9ff", borderRadius: 10, display: "flex", alignItems: "center", gap: 12 }}>
             <img src={form.image} alt="" style={{ width: 64, height: 64, objectFit: "contain", borderRadius: 8, background: "#fff", border: "1px solid #eee" }} />
-            <span style={{ fontSize: 12, color: "#888" }}>Предпросмотр изображения</span>
+            <span style={{ fontSize: 12, color: "#888" }}>{P.imagePreview}</span>
           </div>
         )}
 
-        {/* Языковые вкладки */}
+        {/* Языковые вкладки контента (RU/EN/UZ товара — не путать с языком интерфейса) */}
         <div style={{ display: "flex", gap: 4, marginBottom: 16, borderBottom: "1px solid #f0f0f0" }}>
           {LANGS.map(l => (
             <button key={l} onClick={() => setTab(l)} style={{ padding: "8px 16px", border: "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: tab === l ? 700 : 500, color: tab === l ? "#0066cc" : "#888", borderBottom: tab === l ? "2px solid #0066cc" : "2px solid transparent", marginBottom: -1 }}>
@@ -187,12 +196,12 @@ export default function AdminProducts() {
               </div>
             ))}
             <div>
-              <Label hint="каждый компонент с новой строки">Состав</Label>
+              <Label hint={P.compositionHint}>{P.composition}</Label>
               <Textarea
                 rows={6}
                 value={(form.composition?.[l] || []).join("\n")}
                 onChange={e => set(`composition.${l}`, e.target.value.split("\n"))}
-                placeholder={"Красный корень — антиоксидантное действие\nБессмертник — улучшает функцию печени"}
+                placeholder={P.compositionPh}
               />
             </div>
           </div>
@@ -207,26 +216,26 @@ export default function AdminProducts() {
         <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
           <button style={{ ...btn(editing ? "#f59e0b" : "#0066cc"), padding: "10px 22px", boxShadow: `0 4px 12px ${editing ? "rgba(245,158,11,0.3)" : "rgba(0,102,204,0.3)"}` }} onClick={save} disabled={saving}>
             {saving
-              ? <><Spinner /> Сохранение…</>
+              ? <><Spinner /> {P.saving}</>
               : editing
-                ? <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Сохранить изменения</>
-                : <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Добавить препарат</>
+                ? <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> {P.saveEdit}</>
+                : <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> {P.saveNew}</>
             }
           </button>
-          {editing && <button style={btn("#f1f3f5", "#555")} onClick={cancel}>Отмена</button>}
+          {editing && <button style={btn("#f1f3f5", "#555")} onClick={cancel}>{P.cancel}</button>}
         </div>
       </div>
 
       {/* Список */}
       <div style={{ background: "#fff", borderRadius: 14, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", overflow: "hidden" }}>
         <div style={{ padding: "16px 24px", borderBottom: "1px solid #f0f0f0" }}>
-          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>Все препараты</h2>
+          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#0d1b3e" }}>{P.listTitle}</h2>
         </div>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ background: "#fafafa" }}>
-                {["Препарат", "Названия (EN / UZ)", "Ссылка", "Действия"].map(h => (
+                {[P.colProduct, P.colNames, P.colSlug, P.colActions].map(h => (
                   <th key={h} style={{ textAlign: "left", padding: "10px 20px", fontSize: 11, fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>{h}</th>
                 ))}
               </tr>
@@ -254,22 +263,22 @@ export default function AdminProducts() {
                     <div style={{ display: "flex", gap: 8 }}>
                       <a href={`/ru/${p.slug}`} target="_blank" rel="noreferrer" style={{ ...btn("#f0f6ff", "#0066cc"), padding: "6px 12px", textDecoration: "none" }}>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        Открыть
+                        {P.open}
                       </a>
                       <button style={{ ...btn("#fff8e1", "#d97706"), padding: "6px 12px" }} onClick={() => edit(p)}>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                        Изменить
+                        {P.edit}
                       </button>
                       <button style={{ ...btn("#fff0f0", "#dc2626"), padding: "6px 12px" }} onClick={() => del(p.id)}>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
-                        Удалить
+                        {P.delete}
                       </button>
                     </div>
                   </td>
                 </tr>
               ))}
               {items.length === 0 && (
-                <tr><td colSpan={4} style={{ padding: "40px", textAlign: "center", color: "#bbb", fontSize: 14 }}>Препаратов пока нет. Добавьте первый в форме выше.</td></tr>
+                <tr><td colSpan={4} style={{ padding: "40px", textAlign: "center", color: "#bbb", fontSize: 14 }}>{P.empty}</td></tr>
               )}
             </tbody>
           </table>

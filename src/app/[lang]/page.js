@@ -26,7 +26,6 @@ export async function generateMetadata({ params }) {
 
 const stats = [
   { num: "2015", label: { ru: "Год основания", en: "Founded", uz: "Tashkil etilgan" } },
-  { num: "210+", label: { ru: "Сотрудников", en: "Employees", uz: "Xodimlar" } },
   { num: "15",   label: { ru: "Продуктов", en: "Products", uz: "Mahsulotlar" } },
 ];
 
@@ -80,9 +79,9 @@ export default async function HomePage({ params }) {
 
         {/* STATS */}
         <section style={{ background: "#1c2f4a", borderBottom: "1px solid #243650" }}>
-          <div className="container grid-stats" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)" }}>
+          <div className="container grid-stats" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}>
             {stats.map((s, i) => (
-              <div key={i} style={{ padding: "24px 20px", textAlign: "center", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
+              <div key={i} style={{ padding: "24px 20px", textAlign: "center", borderRight: i < 1 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
                 <div style={{ fontSize: "2rem", fontWeight: 700, color: "#fff", lineHeight: 1 }}>{s.num}</div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 5, textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>{s.label[lang]}</div>
               </div>
@@ -156,7 +155,7 @@ export default async function HomePage({ params }) {
               </div>
               <Link href={`/${lang}/events`} className="btn-outline">{tr.allEvents}</Link>
             </div>
-            <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 22 }}>
+            <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 22 }}>
               {events.slice(0, 3).map(ev => (
                 <Link key={ev.id} href={`/${lang}/events/${ev.slug}`} style={{ textDecoration: "none", display: "flex" }}>
                   <div className="event-card" style={{ width: "100%" }}>

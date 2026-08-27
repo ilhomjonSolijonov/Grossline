@@ -1,9 +1,12 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAdminLang, AdminLangSwitcher } from "../AdminLangContext";
 
 export default function LoginClient() {
   const router = useRouter();
+  const { tr } = useAdminLang();
+  const L = tr.login;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,7 +27,7 @@ export default function LoginClient() {
       router.push("/admin");
       router.refresh();
     } else {
-      setError("Неверный логин или пароль");
+      setError(L.error);
     }
   }
 
@@ -41,6 +44,11 @@ export default function LoginClient() {
       <div style={{ position: "fixed", inset: 0, opacity: 0.04, backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "32px 32px", pointerEvents: "none" }} />
 
       <div style={{ width: "100%", maxWidth: 420, position: "relative" }}>
+        {/* Language switcher */}
+        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 14 }}>
+          <AdminLangSwitcher />
+        </div>
+
         {/* Card */}
         <div style={{
           background: "#fff",
@@ -61,15 +69,15 @@ export default function LoginClient() {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
               </svg>
             </div>
-            <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>Grossline Pharm</h1>
-            <p style={{ margin: "6px 0 0", color: "#888", fontSize: 14 }}>Войдите в панель управления</p>
+            <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#0d1b3e" }}>{L.brand}</h1>
+            <p style={{ margin: "6px 0 0", color: "#888", fontSize: 14 }}>{L.subtitle}</p>
           </div>
 
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {/* Username */}
             <div>
               <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#555", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Логин
+                {L.username}
               </label>
               <div style={{ position: "relative" }}>
                 <div style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#aaa" }}>
@@ -82,7 +90,7 @@ export default function LoginClient() {
                   type="text"
                   value={username}
                   onChange={e => setUsername(e.target.value)}
-                  placeholder="admin"
+                  placeholder={L.usernamePlaceholder}
                   style={{
                     width: "100%", padding: "12px 14px 12px 38px",
                     border: "2px solid #e8e8e8", borderRadius: 10,
@@ -98,7 +106,7 @@ export default function LoginClient() {
             {/* Password */}
             <div>
               <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#555", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Пароль
+                {L.password}
               </label>
               <div style={{ position: "relative" }}>
                 <div style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#aaa" }}>
@@ -150,7 +158,7 @@ export default function LoginClient() {
                 boxShadow: "0 4px 16px rgba(0,102,204,0.35)",
               }}
             >
-              {loading ? "Вход..." : "Войти"}
+              {loading ? L.submitLoading : L.submit}
             </button>
           </form>
 
