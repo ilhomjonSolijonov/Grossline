@@ -194,7 +194,7 @@ export default async function HomePage({ params }) {
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <Link href={`/${lang}/contacts`} className="btn-white">{tr.contacts}</Link>
-              <a href="tel:+998711771771" className="btn-ghost">+998 71 177 17 71</a>
+              <a href="tel:+998951771771" className="btn-ghost">+998 95 177 17 71</a>
             </div>
           </div>
         </section>

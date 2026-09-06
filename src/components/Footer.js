@@ -14,7 +14,6 @@ export default function Footer({ lang }) {
   ];
 
   const contacts = [
-    { icon: "📞", text: "+998 71 177 17 71", href: "tel:+998711771771" },
     { icon: "📞", text: "+998 95 177 17 71", href: "tel:+998951771771" },
     { icon: "✉️", text: "info@grossline.uz", href: "mailto:info@grossline.uz" },
   ];

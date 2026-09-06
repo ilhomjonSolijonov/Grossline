@@ -5,9 +5,24 @@ import Footer from "@/components/Footer";
 import { t } from "@/lib/i18n";
 
 const labels = {
-  ru: { title: "КОНТАКТЫ", sectionTitle: "Контактная информация", formTitle: "Напишите нам", namePh: "Ваше имя", emailPh: "Ваш email", msgPh: "Сообщение", submit: "Отправить", sent: "Сообщение отправлено! Спасибо." },
-  en: { title: "CONTACTS", sectionTitle: "Contact Information", formTitle: "Write to us", namePh: "Your name", emailPh: "Your email", msgPh: "Message", submit: "Send", sent: "Message sent! Thank you." },
-  uz: { title: "KONTAKTLAR", sectionTitle: "Kontakt ma'lumotlari", formTitle: "Bizga yozing", namePh: "Ismingiz", emailPh: "Emailingiz", msgPh: "Xabar", submit: "Yuborish", sent: "Xabar yuborildi! Rahmat." },
+  ru: {
+    title: "КОНТАКТЫ", sectionTitle: "Контактная информация", formTitle: "Напишите нам",
+    namePh: "Ваше имя", emailPh: "Ваш email", msgPh: "Сообщение", submit: "Отправить", sending: "Отправка…",
+    sent: "Сообщение отправлено! Спасибо.", error: "Не удалось отправить сообщение. Попробуйте ещё раз или позвоните нам.",
+    address: "Республика Узбекистан, Ташкентская обл., Зангиатинский район, улица Рамадон дом 40",
+  },
+  en: {
+    title: "CONTACTS", sectionTitle: "Contact Information", formTitle: "Write to us",
+    namePh: "Your name", emailPh: "Your email", msgPh: "Message", submit: "Send", sending: "Sending…",
+    sent: "Message sent! Thank you.", error: "Failed to send the message. Please try again or call us.",
+    address: "Republic of Uzbekistan, Tashkent region, Zangiata district, Ramadon street 40",
+  },
+  uz: {
+    title: "KONTAKTLAR", sectionTitle: "Kontakt ma'lumotlari", formTitle: "Bizga yozing",
+    namePh: "Ismingiz", emailPh: "Emailingiz", msgPh: "Xabar", submit: "Yuborish", sending: "Yuborilmoqda…",
+    sent: "Xabar yuborildi! Rahmat.", error: "Xabarni yuborib bo'lmadi. Qaytadan urinib ko'ring yoki bizga qo'ng'iroq qiling.",
+    address: "O'zbekiston Respublikasi, Toshkent viloyati, Zangiota tumani, Ramadon ko'chasi 40",
+  },
 };
 
 const inp = {
@@ -20,15 +35,31 @@ const inp = {
 
 export default function ContactsClient({ lang }) {
   const tr = t[lang];
-  const lb = labels[lang];
-  const [sent, setSent] = useState(false);
+  const lb = labels[lang] || labels.ru;
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
 
   const contacts = [
-    { icon: "📍", label: tr.address, value: "Республика Узбекистан, Ташкентская обл., Зангиатинский район, улица Рамадон дом 40", href: null },
-    { icon: "📞", label: tr.phone, value: "+998 71 177 17 71", href: "tel:+998711771771" },
+    { icon: "📍", label: tr.address, value: lb.address, href: null },
     { icon: "📞", label: tr.phone, value: "+998 95 177 17 71", href: "tel:+998951771771" },
     { icon: "✉️", label: tr.email, value: "info@grossline.uz", href: "mailto:info@grossline.uz" },
   ];
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("request failed");
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <>
@@ -61,16 +92,33 @@ export default function ContactsClient({ lang }) {
               {/* Form */}
               <div style={{ background: "#fff", borderRadius: 10, padding: 28, border: "1px solid #e8ecf0", boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
                 <h2 style={{ fontSize: "1rem", marginBottom: 20, color: "#1c1c1e", fontWeight: 700 }}>{lb.formTitle}</h2>
-                {sent ? (
+                {status === "sent" ? (
                   <div style={{ background: "#f0f9f0", color: "#2e7d32", borderRadius: 8, padding: 24, textAlign: "center", fontWeight: 600, fontSize: 15 }}>
                     {lb.sent}
                   </div>
                 ) : (
-                  <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    <input required style={inp} placeholder={lb.namePh} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <input required type="email" style={inp} placeholder={lb.emailPh} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <textarea required style={{ ...inp, height: 110, resize: "vertical" }} placeholder={lb.msgPh} onFocus={e => e.target.style.borderColor="#1a56db"} onBlur={e => e.target.style.borderColor="#e5e7eb"} />
-                    <button type="submit" className="btn-primary" style={{ padding: "12px" }}>{lb.submit}</button>
+                  <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                    <input
+                      required style={inp} placeholder={lb.namePh}
+                      value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                      onFocus={e => e.target.style.borderColor = "#1a56db"} onBlur={e => e.target.style.borderColor = "#e5e7eb"}
+                    />
+                    <input
+                      required type="email" style={inp} placeholder={lb.emailPh}
+                      value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                      onFocus={e => e.target.style.borderColor = "#1a56db"} onBlur={e => e.target.style.borderColor = "#e5e7eb"}
+                    />
+                    <textarea
+                      required style={{ ...inp, height: 110, resize: "vertical" }} placeholder={lb.msgPh}
+                      value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+                      onFocus={e => e.target.style.borderColor = "#1a56db"} onBlur={e => e.target.style.borderColor = "#e5e7eb"}
+                    />
+                    {status === "error" && (
+                      <div style={{ background: "#fff0f0", color: "#c00", borderRadius: 8, padding: "10px 14px", fontSize: 13 }}>{lb.error}</div>
+                    )}
+                    <button type="submit" className="btn-primary" style={{ padding: "12px" }} disabled={status === "sending"}>
+                      {status === "sending" ? lb.sending : lb.submit}
+                    </button>
                   </form>
                 )}
               </div>
